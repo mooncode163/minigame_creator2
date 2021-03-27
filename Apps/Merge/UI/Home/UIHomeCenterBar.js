@@ -13,9 +13,7 @@ cc.Class({
         btnAdVideo: cc.UIButton,
         btnAddLove: cc.UIButton,
 
-        btnShape: cc.UIButton,
-        btnColor: cc.UIButton,
-        btnShapeColor: cc.UIButton,
+        btnPlay: cc.UIButton, 
         btnShare: cc.UIButton,
 
     },
@@ -62,8 +60,8 @@ cc.Class({
     },
 
 
-    GotoGameByMode: function (mode) {
-        cc.GameManager.gameMode = mode;
+    GotoGame: function () {
+        // cc.GameManager.gameMode = mode;
         cc.LevelManager.main().StartParsePlace(function () {
             this.GotoGameByModeInteranl();
         }.bind(this)
@@ -72,29 +70,10 @@ cc.Class({
     GotoGameByModeInteranl: function () {
         if (this.controller != null) {
             var navi = this.controller.naviController;
-            var total = cc.LevelManager.main().placeTotal;
-            // total = 0;
-            if (total > 1) {
-                if (navi != null) {
-                    navi.Push(PlaceViewController.main());
-                }
-
-            }
-            else {
-                navi.Push(GuankaViewController.main());
-            }
+            navi.Push(GameViewController.main());
         }
     },
-
-    OnClickBtnLearn: function (event, customEventData) {
-        cc.LevelManager.main().StartParseGuanka(function () {
-            if (this.controller != null) {
-                var navi = this.controller.naviController;
-                navi.Push(LearnProgressViewController.main());
-            }
-        }.bind(this)
-        );
-    },
+ 
     OnClickBtnAddLove: function (event, customEventData) {
     },
 
@@ -104,30 +83,12 @@ cc.Class({
         cc.Share.main().ShareImageText("", cc.AppRes.SHARE_TITLE, cc.AppRes.SHARE_IMAGE_URL, "");
     },
 
-    OnClickBtnShape: function (event, customEventData) {
+    
 
-        ////3.主动拉起分享接口
-
-
-        // if (!this.isActionFinish) {
-        //    // return;
-        // }
-        this.GotoGameByMode(GameShapeColor.GAME_MODE_SHAPE);
-
-
-
-        // let score = "60";
-        // cc.Debug.Log("OnGameWin score="+score);
-        // cc.FrendBoard.main().SaveData(score);
-
+    OnClickBtnPlay: function (event, customEventData) { 
+        this.GotoGame(); 
     },
-    OnClickBtnColor: function (event, customEventData) {
-
-        this.GotoGameByMode(GameShapeColor.GAME_MODE_COLOR);
-
-        // let score = '' + 50;
-        // cc.FrendBoard.main().SaveData(score);
-    }, 
+    
 
 });
 

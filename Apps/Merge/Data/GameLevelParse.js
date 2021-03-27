@@ -1,98 +1,75 @@
 var UIViewController = require("UIViewController");
-var UIGameBase = require("UIGameBase"); 
+var UIGameBase = require("UIGameBase");
 
 var GameLevelParse = cc.Class({
     extends: cc.LevelParseBase,
-    statics: { 
+    statics: {
     },
 
-    statics: { 
+    statics: {
     },
 
     properties: {
-        
+        listGameItems: {
+            default: [],
+            type: cc.Object
+        },
     },
 
     GetGuankaTotal: function () {
         // var count = this.ParseGuanka();
         var count = 0;
-     
+
         return count;
     },
     CleanGuankaList: function () {
-       
+
 
     },
 
-    ParseGuanka: function (json) {
-        // var idx = cc.LevelManager.main().placeLevel;
-        // var infoPlace = cc.LevelManager.main().GetPlaceItemInfo(idx);
-        // cc.Debug.Log("GameLevelParse ParseGuanka 0");
-        // if ((this.listGuanka != null) && (this.listGuanka.length != 0)) {
-        //     return;
-        // }
-        // var strPlace = infoPlace.id;
+    GetLastItemInfo: function () {
+        return this.listGameItems[this.listGameItems.length-1];
+    }, 
 
-        // var items = json.items;
-        // for (var i = 0; i < items.length; i++) {
-        //     var info = new cc.CaiCaiLeItemInfo();
-        //     var item = items[i];
-        //     info.id = item.id;
-        //     info.title = item.title;
-        //     info.pronunciation = item.pronunciation;
-        //     info.translation = item.translation;
-        //     info.album = item.album;
+    ParseGameItemJson: function (json) {
 
-        //     var dirRoot = cc.CloudRes.main().rootPath;
-        //     var picdir = dirRoot + "/image/" + strPlace;
-        //     info.pic = picdir + "/" + info.id + ".png";
+        var items = json.items;
+        for (var i = 0; i < items.length; i++) {
+            var info = new cc.CaiCaiLeItemInfo();
+            var item = items[i];
+            info.id = item["id"];
+            info.pic = this.GetImagePath(info.id);
+            this.listGameItems.push(info);
+        }
 
-        //     //歇后语
-        //     var key = "xiehouyu";
-        //     if (item.key != null) {
-        //         var xiehouyu = item.key;
-        //         for (var j = 0; j < xiehouyu.length; j++) {
-        //             var item_xhy = xiehouyu[j];
-        //             if (j == 0) {
-        //                 info.head = item_xhy.content;
-        //             }
-        //             if (j == 1) {
-        //                 info.end = item_xhy.content;
-        //             }
-        //         }
-        //     }
+        this.ParseGuankaDidFinish();
+    },
 
-        //     //谜语
-        //     key = "head";
-        //     if (item.key != null) {
-        //         //Riddle
-        //         info.head = item.head;
-        //         info.end = item.end;
-        //         info.tips = item.tips;
-        //         info.type = item.type;
-        //     }
+    StartParseGameItems: function () {
+        if ((this.listGameItems != null) && (this.listGameItems.length != 0)) {
+            return;
+        }
 
-        //     info.gameType = infoPlace.gameType;
-        //     cc.Debug.Log("UpdateWord ParseGuanka gameType=" + info.gameType);
-        //     this.listGuanka.push(info);
-        // }
-
-        // cc.Debug.Log("UIGameCaiCaiLe  ParseGuanka gameType=" + info.gameType);
-        //  
-
-
-        // this.ParseGuankaDidFinish();
-
+        var filepath = cc.Common.GAME_RES_DIR + "/Level/GameItems";
+        cc.resources.load(filepath, function (err, rootJson) {
+            if (err) {
+                cc.Debug.Log("config:err=" + err);
+            }
+            if (err == null) {
+                this.ParseGameItemJson(rootJson.json);
+            }
+        }.bind(this));
 
     },
  
 
 
+
     StartParseGuanka: function (callback) {
         this.callbackGuankaFinish = callback;
-        
+        this.StartParseGameItems();
     },
-      
+
 
 });
 
@@ -105,4 +82,4 @@ GameLevelParse.main = function () {
     return GameLevelParse._main;
 }
 
-cc.GameLevelParse = module.export = GameLevelParse; 
+cc.GameLevelParse = module.export = GameLevelParse;
