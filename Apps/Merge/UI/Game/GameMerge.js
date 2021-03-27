@@ -1,9 +1,6 @@
-var UIViewController = require("UIViewController");
-var UIGameItem = require("UIGameItem");
-var UIBoard = require("UIBoard");
+var UIViewController = require("UIViewController");  
 var UIView = require("UIView");
-var GameBase = require("GameBase");
-var GameLevelParse = require("GameLevelParse");
+var GameBase = require("GameBase"); 
 
 //shu： wx621ff1107207384c
 //weixin小程序appid: heng: wx2c5d3abfad26e8b1
