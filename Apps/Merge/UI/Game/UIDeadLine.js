@@ -15,7 +15,8 @@ var UIDeadLine = cc.Class({
     start: function () {
         this._super();
     },
-    
- 
 
+    
+
+    
 });

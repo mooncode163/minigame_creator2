@@ -17,6 +17,7 @@ var UIGameMerge = cc.Class({
     },
     onLoad: function () {
         this._super();
+        UIGameMerge._main = this;
         this.LoadLanguageGame(); 
         this.textTitle.node.active = false;
     },
@@ -85,3 +86,14 @@ var UIGameMerge = cc.Class({
 
 
 });
+
+UIGameMerge._main = null;
+UIGameMerge.main = function () {
+    // 
+    if (!UIGameMerge._main) {
+        // GameMerge._main = new GameMerge();
+    }
+    return UIGameMerge._main;
+}
+
+cc.UIGameMerge = module.export = UIGameMerge;

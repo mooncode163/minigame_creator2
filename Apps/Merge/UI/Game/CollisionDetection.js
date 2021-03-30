@@ -10,12 +10,20 @@ var CollisionDetection = cc.Class({
     properties: { 
     },
     onLoad: function () {
-        this._super();
-        this.LoadLanguageGame(); 
-        this.textTitle.node.active = false;
+        this._super(); 
     },
     start: function () {
         this._super();
     },
-     
+
+    onCollisionEnter: function(other,self){
+
+    },
+    onCollisionStay: function(other,self){
+
+    },
+    onCollisionExit: function(other,self){
+
+    },
+    
 });

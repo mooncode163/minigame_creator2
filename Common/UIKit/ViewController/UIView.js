@@ -19,6 +19,8 @@ var UIView = cc.Class({
             type: cc.rect,
         },
         title: 'title',
+        id: 'id',
+        index:0,
         objTag: cc.Object,
         keyText: "",
         keyColor: "",

@@ -11,6 +11,7 @@ var BoardLine = cc.Class({
     },
     onLoad: function () {
         this._super(); 
+        this.node.id = cc.GameRes.NameBoardLine;
     },
     start: function () {
         this._super();

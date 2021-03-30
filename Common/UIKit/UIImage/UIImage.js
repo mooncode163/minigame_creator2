@@ -87,6 +87,19 @@ var UIImage = cc.Class({
         });
     },
 
+    UpdateImage2: function (pic,type=cc.Sprite.Type.SIMPLE) {
+        this.UpdateImage({
+            pic: pic,
+            type: type,// 
+            success: function () {
+                this.LayOut();
+                // cc.AppSceneBase.main().LayOut();
+                
+            }.bind(this),
+        });
+    },
+
+
     LayOut() {
         this._super();
     },

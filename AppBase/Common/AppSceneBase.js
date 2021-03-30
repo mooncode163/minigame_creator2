@@ -65,6 +65,7 @@ var AppSceneBase = cc.Class({
     },
     onLoad: function () {
         cc.Debug.Log("AppSceneBase onLoad");
+        AppSceneBase._main = this;
         //AppSceneBase.main = this;
         // if(AppSceneBase.main==null){
         //     cc.Debug.Log(" AppSceneBase.main onLoad size is null");
@@ -224,6 +225,13 @@ var AppSceneBase = cc.Class({
 
     },
 
+    LayOut: function ( ) { 
+
+    },
+
+    
+
+
     UpdateLanguage() {
         if (this.rootViewController != null) {
             this.rootViewController.UpdateLanguage();
@@ -243,4 +251,15 @@ var AppSceneBase = cc.Class({
     // update (dt) {},
 });
 
-//AppSceneBase.main = null; 
+//AppSceneBase.main = null;
+
+AppSceneBase._main = null;
+AppSceneBase.main = function () {
+    // 
+    if (!AppSceneBase._main) {
+        // GameMerge._main = new GameMerge();
+    }
+    return AppSceneBase._main;
+}
+
+cc.AppSceneBase = module.export = AppSceneBase;
