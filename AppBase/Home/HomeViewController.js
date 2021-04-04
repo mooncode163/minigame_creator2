@@ -69,7 +69,7 @@ var HomeViewController = cc.Class({
     },
 
     LoadPrefab: function () {
-        var strPrefab = "AppCommon/Prefab/Home/UIHome" + cc.Config.main().appType;
+        var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;
 
         cc.Debug.Log("HomeViewController LoadPrefab=" + strPrefab);
         cc.PrefabCache.main.Load(strPrefab, function (err, prefab) {

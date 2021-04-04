@@ -7,137 +7,53 @@ var ColorConfig = cc.Class({
     //cc.js.getClassName
     extends: cc.Object,
     statics: {
-        // 声明静态变量  
-        callbackFinish: null,
+        // 声明静态变量   
     },
     properties: {
-        jsonRoot: null,
-        infoPreload:null,
+        colorApp: null, 
+        countLoad:0,
+        countMax:1,
     },
-
-    SetLoadFinishCallBack: function (callback, info) {
-        // Config.callbackFinish = callback;
-        // Config.loadInfo = info;
-    },
-
-
-    // 255,100,200,255 to color return cc.Color 47,47,47,255
-
-    RGBString2ColorA: function (strrgba) {
-        var r, g, b, a;
-        var strsplit = ",";
-        var list = strrgba.split(strsplit);
-        var index = 0;
-        //cc.Debug.Log("RGBString2Color:list="+list.length);
-
-        for (let value of list) {
-            if (index == 0) {
-                r = parseInt(value);
-            }
-            if (index == 1) {
-                g = parseInt(value);
-            }
-            if (index == 2) {
-                b = parseInt(value);
-            }
-            if (index == 3) {
-                a = parseInt(value);
-            }
-            index++;
-        }
-
-        var color = new cc.Color(r, g, b, a);
-        return color;
-    },
-
-    Load: function (obj) {
-        var filepath = cc.Common.RES_CONFIG_DATA + "/Color/Color";//.json
-        // filepath = cc.Common.RES_CONFIG_DATA + "/config/config_android";
-
-        cc.Debug.Log("ColorConfig:filepath =" + filepath);
-        //去除后缀
-        // filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
-        //cc.JsonAsset
-        cc.resources.load(filepath, function (err, rootJson) {
-            if (err) {
-                cc.Debug.Log("ColorConfig:err=" + err);
-                // return;
-            }
-            cc.Debug.Log("ColorConfig:rootJson=" + rootJson);
-            if (err == null) {
-                this.ParseData(rootJson.json);
-            }
-            this.GetColorInternal(obj);
-        }.bind(this));
-    },
-
-
-    ParseData: function (json) {
-        if (json == null) {
-            cc.Debug.Log("config:ParseData=null");
-        }
-        this.jsonRoot = json;
-
-    },
-
-    //同步 synchronization
-    GetColorSync(key) {
-        var cr = cc.Color.BLACK;
-        // key = "PlaceItemTitle";
-        // key = "APP_TYPE";
-        /*
-        js中的变量作为json的key 的语法：https://blog.csdn.net/xiaomanonyo/article/details/78642148
-        */
-        if (this.jsonRoot != null) {
-            if (this.jsonRoot[key] != null) {
-                var str = this.jsonRoot[key];
-                cr = this.RGBString2ColorA(str);
-            }
-            else {
-                cc.Debug.Log("ColorConfig ContainsKey no key =" + key);
-            }
-        }
-        return cr;
-    },
-
-    //异步
-    /*
+    OnFinish: function (obj)
     {
-        key: "",
-        def: cc.Color,
-        info:,
-        success: function (color) {
-        },
-        fail: function () {
-        }, 
+        this.countLoad++;
+        if(this.countLoad>=this.countMax)
+        {
+            if(obj.success!=null)
+            {
+                obj.success(this);
+            }
+        }
+    },
+  /*
+    {  
+    success: function (p) {
+    },
+    fail: function () {
+    }, 
     }
-*/
-    GetColor(obj) {
-        if (this.jsonRoot != null) {
-            return this.GetColorInternal(obj);
-        } else {
-            this.Load(obj);
-        }
+    */
+    Load: function (obj) {
+        var filepath = cc.Common.RES_CONFIG_DATA + "/Color/Color.json";//.json 
+        this.colorApp = new cc.ColorConfigInternal(); 
+        this.colorApp.Load(  
+            { 
+            filepath:filepath,
+            success: function (p) {
+                this.OnFinish(obj); 
+            }.bind(this),
+            fail: function () {
+                this.OnFinish(obj); 
+            }, 
+            });
+    },
+ 
+ 
+    GetColor(key) {
+       return this.colorApp.GetColorSync(key);
     },
 
-    GetColorInternal(obj) {
-        var key = "key";
-        var cr;
-        if (obj != null) {
-            if (obj.def == null) {
-                obj.def = cc.Color.BLACK;
-            }
-            cr = obj.def;
-            key = obj.key;
-        }
-        cr = this.GetColorSync(key);
-        if (obj != null) {
-            if (obj.success != null) {
-                obj.success(cr);
-            }
-        }
-    },
-
+    
 
 });
 

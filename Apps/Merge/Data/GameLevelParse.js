@@ -27,6 +27,12 @@ var GameLevelParse = cc.Class({
 
     },
 
+    GetImagePath: function (id)
+    { 
+        return cc.Common.GAME_RES_DIR + "/Image/"+id+".png";
+    },
+
+
     GetLastItemInfo: function () {
         return this.listGameItems[this.listGameItems.length-1];
     }, 
@@ -35,7 +41,7 @@ var GameLevelParse = cc.Class({
 
         var items = json.items;
         for (var i = 0; i < items.length; i++) {
-            var info = new cc.CaiCaiLeItemInfo();
+            var info = new cc.ItemInfo();
             var item = items[i];
             info.id = item["id"];
             info.pic = this.GetImagePath(info.id);
@@ -53,7 +59,7 @@ var GameLevelParse = cc.Class({
         var filepath = cc.Common.GAME_RES_DIR + "/Level/GameItems";
         cc.resources.load(filepath, function (err, rootJson) {
             if (err) {
-                cc.Debug.Log("config:err=" + err);
+                cc.Debug.Log("GameItems:err=" + err);
             }
             if (err == null) {
                 this.ParseGameItemJson(rootJson.json);

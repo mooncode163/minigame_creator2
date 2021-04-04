@@ -4,58 +4,87 @@ var AppPreLoad = cc.Class({
         // 声明静态变量  
     },
 
-    properties: {
-        listProLoad: {
-            default: [],
-            type: cc.LoadItemInfo
-        },
-        objCallBack: null,
+    properties: { 
+        countLoad:0,
+        countMax:0,
+    },
+
+    OnFinish: function (obj)
+    {
+        this.countLoad++;
+        cc.Debug.Log("AppPreLoad this.countLoad=" + this.countLoad + ",this.countMax=" + this.countMax);
+        if(this.countLoad>=this.countMax)
+        {   
+            this.countLoad =0;
+            if(obj.success!=null)
+            {
+                obj.success(this);
+            }
+        }
     },
 
     /*
 { 
-success: function (color) {
+success: function (p) {
 },
 fail: function () {
 }, 
 }*/
 
     Load: function (obj) {
-        this.objCallBack = obj;
+        // this.objCallBack = obj;
         var w, h;
+        this.countLoad = 0;
+        this.countMax = 5; 
+
         //config
-        {
-            var info = new cc.LoadItemInfo();
-            info.id = cc.LoadItemInfo.CONFIG;
-            info.isLoad = false;
-            this.listProLoad.push(info);
-
-            var cf = cc.Config.main();
-            cf.SetLoadFinishCallBack(this.AppPreLoadDidFinish.bind(this), info);
-            //cf.ParseJson(false);
-        }
-
-        // color
-        {
-            var info = new cc.LoadItemInfo();
-            info.id = "color";
-            info.isLoad = false;
-            this.listProLoad.push(info);
-            cc.ColorConfig.main().GetColor({
-                key: "apppreload",
-                def: cc.Color.BLACK,
-                success: function (color) {
-                    for (let infotmp of this.listProLoad) {
-                        if (infotmp.id == "color") {
-                            infotmp.isLoad = true;
-                        }
-                    }
-                    cc.Debug.Log("AppPreLoadDidFinish color");
-                    this.AppPreLoadDidFinish(info);
-                }.bind(this),
+        // this.countMax++;
+        cc.Config.main().Load(  
+            {  
+            success: function (p) { 
+                cc.Debug.Log("AppPreLoad Config success");
+                this.OnFinish(obj); 
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad Config fail");
+            }, 
             });
 
-        }
+
+            // return;
+
+        // color
+        // this.countMax++;
+        cc.ColorConfig.main().Load(  
+            {  
+            success: function (p) {  
+                cc.Debug.Log("AppPreLoad ColorConfig success");
+                this.OnFinish(obj);
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad ColorConfig fail");
+            }, 
+            });
+        // {
+        //     var info = new cc.LoadItemInfo();
+        //     info.id = "color";
+        //     info.isLoad = false;
+        //     this.listProLoad.push(info);
+        //     cc.ColorConfig.main().GetColor({
+        //         key: "apppreload",
+        //         def: cc.Color.BLACK,
+        //         success: function (color) {
+        //             for (let infotmp of this.listProLoad) {
+        //                 if (infotmp.id == "color") {
+        //                     infotmp.isLoad = true;
+        //                 }
+        //             }
+        //             cc.Debug.Log("AppPreLoadDidFinish color");
+        //             this.AppPreLoadDidFinish(info);
+        //         }.bind(this),
+        //     });
+
+        // }
 
         //本地 imageres.json
         //if (!cc.Common.main().isWeiXin) 
@@ -79,36 +108,58 @@ fail: function () {
         // }
 
         //language
-        {
-            var info = new cc.LoadItemInfo();
-            info.id = cc.LoadItemInfo.LANGUAGE;
-            info.isLoad = false;
-            this.listProLoad.push(info);
+        // this.countMax++;
+        cc.Language.main().Load(  
+            {  
+            success: function (p) {  
+                cc.Debug.Log("AppPreLoad Language success");
+                this.OnFinish(obj);
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad Language fail");
+            }, 
+            });
+        // {
+        //     var info = new cc.LoadItemInfo();
+        //     info.id = cc.LoadItemInfo.LANGUAGE;
+        //     info.isLoad = false;
+        //     this.listProLoad.push(info);
 
-            var lan = cc.Language.main();
-            lan.SetLoadFinishCallBack(this.AppPreLoadDidFinish.bind(this), info);
-        }
+        //     var lan = cc.Language.main();
+        //     lan.SetLoadFinishCallBack(this.AppPreLoadDidFinish.bind(this), info);
+        // }
 
+
+        //image
+        // this.countMax++;
+        cc.ImageRes.main().Load(  
+            {  
+            success: function (p) {  
+                cc.Debug.Log("AppPreLoad ImageRes success");
+                this.OnFinish(obj);
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad ImageRes fail");
+            }, 
+            });
+
+        // prefab
+        // this.countMax++;
+        cc.ConfigPrefab.main().Load(  
+            {  
+            success: function (p) {  
+                cc.Debug.Log("AppPreLoad ConfigPrefab success");
+                this.OnFinish(obj);
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad ConfigPrefab fail");
+            }, 
+            });
+            
+ 
 
     },
-    AppPreLoadDidFinish: function (p) {
-        cc.Debug.Log("AppPreLoadDidFinish info.id=" + p.id);
-        this.CheckAllLoad();
-    },
-    CheckAllLoad: function () {
-        var isLoadAll = true;
-        for (let info of this.listProLoad) {
-            if (info.isLoad == false) {
-                isLoadAll = false;
-            }
-        }
-        cc.Debug.Log("AppPreLoad isLoadAll=" + isLoadAll);
-        if (isLoadAll == true) {
-            if (this.objCallBack) {
-                this.objCallBack.success();
-            }
-        }
-    },
+    
 
 });
 

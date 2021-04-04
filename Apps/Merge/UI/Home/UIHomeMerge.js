@@ -19,17 +19,11 @@ cc.Class({
         manager.enabled = true;
         // manager.enabledDebugDraw = true;
       
-        var info = cc.GameLevelParse.main.GetLastItemInfo();
-        var pic = cc.GameLevelParse.main.GetImagePath(info.id);
-        // this.imageLogo.UpdateImage({
-        //     pic: pic,
-        //     type: cc.Sprite.Type.SIMPLE,//SLICED 
-        //     success: function () {
-        //         this.LayOut();
-        //     }.bind(this),
-        // });
+        // var info = cc.GameLevelParse.main().GetLastItemInfo();
+        // var pic = cc.GameLevelParse.main().GetImagePath(info.id);
+     
 
-        this.imageLogo.UpdateImage(pic);
+        // this.imageLogo.UpdateImage2(pic);
         
         this.LayOut();  
 

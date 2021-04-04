@@ -91,7 +91,7 @@ cc.Class({
     },
 
     start() {
-        var hteXT = cc.Common.GetTextHeight(this.textName.text, this.textName.fontSize);
+       // var hteXT = cc.Common.GetTextHeight(this.textName.text, this.textName.fontSize);
     },
 
     LoadPrefabAppCenter: function () {
@@ -131,35 +131,35 @@ cc.Class({
     LayOut: function () {
         this._super();
         //  LayoutScale.ScaleImage(this.imageBg,true);
-        var topbar_h = this.GetTopBarHeight();
-        var size = this.node.getContentSize();
-        var x, y, w, h;
-        //layoutbtn:
-        var pt = this.GetPosOfImageName();
-        //  this.imageNameBg.node.setPosition(pt.x, pt.y);
+        // var topbar_h = this.GetTopBarHeight();
+        // var size = this.node.getContentSize();
+        // var x, y, w, h;
+        // //layoutbtn:
+        // var pt = this.GetPosOfImageName();
+        // //  this.imageNameBg.node.setPosition(pt.x, pt.y);
 
-        // this.textName.node.setPosition(this.imageNameBg.node.getPosition());
+        // // this.textName.node.setPosition(this.imageNameBg.node.getPosition());
 
-        // var rctran = this.textName.getComponent(cc.RectTransform);
-        // if (rctran) {
-        //     rctran.LayOut();
+        // // var rctran = this.textName.getComponent(cc.RectTransform);
+        // // if (rctran) {
+        // //     rctran.LayOut();
+        // // }
+        // //TextName
+        // //   size = this.textName.node.getContentSize();
+        // //  cc.Debug.Log("size TextName= " + size);
+
+        // var ratio = 1.5;
+        // var fontsize = this.textName.fontSize;
+        // w = cc.Common.GetTextWidth(this.textName.text, fontsize) + fontsize * 3;
+        // var w_max = size.width * 0.7;
+        // if (w > w_max) {
+        //     w = w_max;
+        //     h = fontsize * 3 * ratio;
+        // } else {
+        //     h = fontsize * ratio;
         // }
-        //TextName
-        //   size = this.textName.node.getContentSize();
-        //  cc.Debug.Log("size TextName= " + size);
 
-        var ratio = 1.5;
-        var fontsize = this.textName.fontSize;
-        w = cc.Common.GetTextWidth(this.textName.text, fontsize) + fontsize * 3;
-        var w_max = size.width * 0.7;
-        if (w > w_max) {
-            w = w_max;
-            h = fontsize * 3 * ratio;
-        } else {
-            h = fontsize * ratio;
-        }
-
-        this.imageNameBg.SetContentSize(w, h);
+        // this.imageNameBg.SetContentSize(w, h);
     },
 
 

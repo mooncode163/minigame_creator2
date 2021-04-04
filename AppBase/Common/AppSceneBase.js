@@ -162,10 +162,10 @@ var AppSceneBase = cc.Class({
         // }
 
         //UIViewAlert
-        var vm = cc.ViewAlertManager.main();
+        // var vm = cc.ViewAlertManager.main();
 
         cc.AppPreLoad.main().Load({
-            success: function () {
+            success: function (p) {
                 //启动app
                 this.isHasRunApp = true;
 
