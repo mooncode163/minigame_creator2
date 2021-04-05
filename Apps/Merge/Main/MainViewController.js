@@ -49,12 +49,13 @@ var MainViewController = cc.Class({
         CloudResViewController.main().Show(null, this.CloundResDidClose.bind(this));
     },
     GotoHome() {
-        cc.ImageRes.main().GetImage({
-            key: "apppreload",
-            success: function (image) {
-                this.Push(HomeViewController.main());//HomeViewController
-            }.bind(this),
-        });
+        // cc.ImageRes.main().GetImage({
+        //     key: "apppreload",
+        //     success: function (image) {
+                
+        //     }.bind(this),
+        // });
+        this.Push(HomeViewController.main());//HomeViewController
     },
 });
 

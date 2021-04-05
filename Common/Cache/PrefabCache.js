@@ -16,6 +16,13 @@ var PrefabCache = cc.Class({
         }
         this.dicItem = new Dictionary();
     },
+ 
+    LoadByKey: function (key, completeCallback) { 
+        var strPrefab = cc.ConfigPrefab.main().GetPrefab(key);
+        cc.Debug.Log("LoadByKey strPrefab="+strPrefab+" key="+key);
+        return this.Load(strPrefab,completeCallback);
+    },
+
 
     // * loadRes(url: string, completeCallback: (error: Error, resource: any) => void): void
     //Texture2D

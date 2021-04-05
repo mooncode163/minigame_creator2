@@ -168,7 +168,7 @@ var UIView = cc.Class({
     GetKeyImage() {
         var ret = "";
         if (!cc.Common.isBlankString(this.keyImage)) {
-            ret = cc.ImageRes.main().GetImageSync(this.keyImage);
+            ret = cc.ImageRes.main().GetImage(this.keyImage);
         }
         return ret;
     },
@@ -176,7 +176,7 @@ var UIView = cc.Class({
     GetImageOfKey(key) {
         var ret = "";
         if (!cc.Common.isBlankString(key)) {
-            ret = cc.ImageRes.main().GetImageSync(key);
+            ret = cc.ImageRes.main().GetImage(key);
         }
         return ret;
     },

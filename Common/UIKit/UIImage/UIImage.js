@@ -44,12 +44,13 @@ var UIImage = cc.Class({
         //this.keyImage = key;
         var pic = this.GetImageOfKey(key);
         var board = null;
-        if (cc.ImageRes.main().ContainsBoard(key)) {
-            board = cc.ImageRes.main().GetImageBoardSync(key);
+        if (cc.ImageRes.main().IsHasBoard(key)) {
+            board = cc.ImageRes.main().GetImageBoard(key);
         }
         if (!cc.Common.isBlankString(pic)) {
             this.UpdateImage({
-                pic: cc.CloudRes.main().uiRootPath + "/" + pic,
+                // pic: cc.CloudRes.main().uiRootPath + "/" + pic,
+                pic:pic,
                 type: board ? cc.Sprite.Type.SLICED : cc.Sprite.Type.SIMPLE,//SLICED
                 left: board ? board.x : 0,
                 right: board ? board.y : 0,

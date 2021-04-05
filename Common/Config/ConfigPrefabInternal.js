@@ -8,21 +8,29 @@ var ConfigPrefabInternal = cc.Class({
     statics: {
         // 声明静态变量  
         callbackFinish: null,
+        KEY_PATH: "path",  
     },
     properties: {
         jsonRoot: null, 
     },
  
-  
-    Load: function (obj) {
-        var filepath = cc.Common.RES_CONFIG_DATA + "/Color/Color";//.json
-        // filepath = cc.Common.RES_CONFIG_DATA + "/config/config_android";
+          /*
+    {  
+    filepath:"",
+    success: function (p) {
+    },
+    fail: function () {
+    }, 
+    }
+    */
+    Load: function (obj) {   
+        var filepath = obj.filepath;    
 
         cc.Debug.Log("ConfigPrefabInternal:filepath =" + filepath);
         //去除后缀
-        // filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
+        key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         //cc.JsonAsset
-        cc.resources.load(filepath, function (err, rootJson) {
+        cc.resources.load(key, function (err, rootJson) {
             if (err) {
                 cc.Debug.Log("ConfigPrefabInternal:err=" + err);
                 // return;
@@ -35,8 +43,7 @@ var ConfigPrefabInternal = cc.Class({
             if(obj.success!=null)
             {
                 obj.success(this);
-            }
-            this.GetColorInternal(obj);
+            } 
         }.bind(this));
     },
 
@@ -55,8 +62,9 @@ var ConfigPrefabInternal = cc.Class({
         return cc.JsonUtil.ContainsKey(this.jsonRoot, key);
     },
     //同步 synchronization
+   
     GetPrefabSync(key) {
-        return cc.JsonUtil.GetItem(this.jsonRoot, key, ""); 
+        return cc.JsonUtil.GetItem(this.jsonRoot[key], ConfigPrefabInternal.KEY_PATH, ""); 
     },
 
 });

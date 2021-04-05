@@ -8,30 +8,27 @@ var ImageRes = cc.Class({
     extends: cc.Object,
     statics: {
         // 声明静态变量   
- 
+
     },
     properties: {
         jsonRoot: null,
-        imageResApp:null,
-        imageResAppCommon:null,
-        imageResCommon:null, 
-        countLoad:0,
-        countMax:3,
+        imageResApp: null,
+        imageResAppCommon: null,
+        imageResCommon: null,
+        countLoad: 0,
+        countMax: 3,
 
     },
-    Init: function ()
-    {
-        
+    Init: function () {
+
     },
 
 
-    OnFinish: function (obj)
-    {
+    OnFinish: function (obj) {
         this.countLoad++;
         // if(this.countLoad>=this.countMax)
         {
-            if(obj.success!=null)
-            {
+            if (obj.success != null) {
                 obj.success(this);
             }
         }
@@ -45,79 +42,84 @@ var ImageRes = cc.Class({
     }, 
     }
     */
-    Load: function (obj) { 
-        var filepath =""; 
+    Load: function (obj) {
+        var filepath = "";
         this.countLoad = 0;
         this.imageResApp = new cc.ImageResInternal();
-        filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResApp.json";  
-        this.imageResApp.Load(  
-            { 
-            filepath:filepath,
-            success: function (p) {
-                this.OnFinish(obj); 
-            }.bind(this),
-            fail: function () {
-                this.OnFinish(obj);
-            }, 
+        filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResApp.json";
+        this.imageResApp.Load(
+            {
+                filepath: filepath,
+                success: function (p) {
+                    this.OnFinish(obj);
+                }.bind(this),
+                fail: function () {
+                    this.OnFinish(obj);
+                },
             });
- 
-            /*
 
-        filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResAppCommon.json";
-        this.imageResAppCommon = new cc.ImageResInternal();
-        this.imageResAppCommon.Load(  
-            { 
-            filepath:filepath,
-            success: function (p) {
-                this.OnFinish(obj); 
-            }.bind(this),
-            fail: function () {
-            }, 
-            });
-          
-        filepath = cc.Common.RES_CONFIG_DATA_COMMON + "/Image/ImageRes.json";
-        this.imageResCommon = new cc.ImageResInternal();
-        this.imageResCommon.Load(  
-            { 
-            filepath:filepath,
-            success: function (p) {
-                this.OnFinish(obj); 
-            }.bind(this),
-            fail: function () {
-            }, 
-            });
+        /*
+
+    filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResAppCommon.json";
+    this.imageResAppCommon = new cc.ImageResInternal();
+    this.imageResAppCommon.Load(  
+        { 
+        filepath:filepath,
+        success: function (p) {
+            this.OnFinish(obj); 
+        }.bind(this),
+        fail: function () {
+        }, 
+        });
+      
+    filepath = cc.Common.RES_CONFIG_DATA_COMMON + "/Image/ImageRes.json";
+    this.imageResCommon = new cc.ImageResInternal();
+    this.imageResCommon.Load(  
+        { 
+        filepath:filepath,
+        success: function (p) {
+            this.OnFinish(obj); 
+        }.bind(this),
+        fail: function () {
+        }, 
+        });
 */
 
     },
-  
- 
- 
+
+
+
     //bool
-    IsHasBoard(key) { 
+    IsHasBoard(key) {
         var ret = false;
         ret = this.imageResApp.IsHasBoard(key);
-        if(!ret)
-        {
-             ret = this.imageResAppCommon.IsHasBoard(key);
+        if (!ret) {
+            if (this.imageResAppCommon != null) {
+                ret = this.imageResAppCommon.IsHasBoard(key);
+            }
         }
-        if(!ret)
-        {
-             ret = this.imageResCommon.IsHasBoard(key);
-        } 
+        if (!ret) {
+            if (this.imageResCommon != null) {
+                ret = this.imageResCommon.IsHasBoard(key);
+            }
+        }
     },
-    
+
     IsContainsKey(key) {
-       var ret = false;
-       ret = this.imageResApp.ContainsKey(key);
-       if(!ret)
-       {
-            ret = this.imageResAppCommon.ContainsKey(key);
-       }
-       if(!ret)
-       {
-            ret = this.imageResCommon.ContainsKey(key);
-       } 
-       
+        var ret = false;
+        ret = this.imageResApp.ContainsKey(key);
+        if (!ret) {
+            if (this.imageResAppCommon != null) {
+                ret = this.imageResAppCommon.ContainsKey(key);
+            }
+
+        }
+        if (!ret) {
+            if (this.imageResCommon != null) {
+                ret = this.imageResCommon.ContainsKey(key);
+            }
+        }
+
     },
     //异步
     /*
@@ -132,22 +134,34 @@ var ImageRes = cc.Class({
     GetImage(key) {
         var ret = "";
         ret = this.imageResApp.GetImageSync(key);
-        if(!ret)
-        {   
-            if(this.imageResAppCommon!=null)
-            {
+        if (!ret) {
+            if (this.imageResAppCommon != null) {
                 ret = this.imageResAppCommon.GetImageSync(key);
             }
         }
-        if(!ret)
-        {
-            if(this.imageResCommon!=null)
-            {
+        if (!ret) {
+            if (this.imageResCommon != null) {
                 ret = this.imageResCommon.GetImageSync(key);
-            } 
-        } 
+            }
+        }
+        return ret;
     },
+    GetImageBoard(key) {
 
+        var ret = "";
+        ret = this.imageResApp.GetImageBoardSync(key);
+        if (!ret) {
+            if (this.imageResAppCommon != null) {
+                ret = this.imageResAppCommon.GetImageBoardSync(key);
+            }
+        }
+        if (!ret) {
+            if (this.imageResCommon != null) {
+                ret = this.imageResCommon.GetImageBoardSync(key);
+            }
+        }
+        return ret;
+    },
     // GetImageInternal(obj) {
     //     var key = "key";
     //     var ret = "";

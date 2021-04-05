@@ -24,7 +24,7 @@ cc.Class({
      
 
         // this.imageLogo.UpdateImage2(pic);
-        
+        cc.Debug.Log("UIHomeMerge onLoad");
         this.LayOut();  
 
 

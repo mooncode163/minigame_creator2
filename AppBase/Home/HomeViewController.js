@@ -56,8 +56,9 @@ var HomeViewController = cc.Class({
     },
 
     LoadPrefabDefault: function () {
-        var strPrefabDefault = "Common/Prefab/Home/UIHomeDefault";
-        cc.PrefabCache.main.Load(strPrefabDefault, function (err, prefab) {
+        // var strPrefabDefault = "Common/Prefab/Home/UIHomeDefault";
+        var key = "UIHomeDefault";
+        cc.PrefabCache.main.LoadByKey(strPrefabDefault, function (err, prefab) {
             if (err) {
                 cc.Debug.Log("LoadPrefabDefault err:" + err.message || err);
                 return;
@@ -69,10 +70,11 @@ var HomeViewController = cc.Class({
     },
 
     LoadPrefab: function () {
-        var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;
-
-        cc.Debug.Log("HomeViewController LoadPrefab=" + strPrefab);
-        cc.PrefabCache.main.Load(strPrefab, function (err, prefab) {
+        // var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;
+        var key = "UIHome" + cc.Config.main().appType;
+        // var strPrefab = cc.ConfigPrefab.main().GetPrefab(key);
+        // cc.Debug.Log("HomeViewController LoadPrefab=" + strPrefab);
+        cc.PrefabCache.main.LoadByKey(key, function (err, prefab) {
             if (err) {
                 cc.Debug.Log("LoadPrefab err:" + err.message || err);
                 this.LoadPrefabDefault();

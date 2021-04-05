@@ -114,40 +114,7 @@ var ImageResInternal = cc.Class({
         return cc.JsonUtil.ContainsKey(this.jsonRoot, key);
     },
   
-
-
-    //异步
-    /*
-    {
-        key: "", F
-        success: function (color) {
-        },
-        fail: function () {
-        }, 
-    }
-*/
-    GetImage(obj) {
-        if (this.jsonRoot != null) {
-            return this.GetImageInternal(obj);
-        } else {
-            this.Load(obj);
-        }
-    },
-
-    GetImageInternal(obj) {
-        var key = "key";
-        var ret = "";
-        if (obj != null) {
-            key = obj.key;
-        }
-        ret = this.GetImageSync(key);
-        if (obj != null) {
-            if (obj.success != null) {
-                obj.success(ret);
-            }
-        }
-    },
-
+ 
 
 });
 
