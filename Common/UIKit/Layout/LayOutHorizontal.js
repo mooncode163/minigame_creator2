@@ -27,6 +27,10 @@ var LayOutHorizontal = cc.Class({
         this.LayOut();
     },
     LayOut: function () {
+        if (!this.Enable()) {
+            return;
+        }
+        this._super();
         this.row = 1;
         this.col = cc.LayoutUtil.main().GetChildCount(this.node, this.enableHide);
         cc.Debug.Log("LayOutHorizontal LayOut");

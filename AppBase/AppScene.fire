@@ -309,8 +309,6 @@
       "__id__": 6
     },
     "_enabled": true,
-    "_sizeTypeX": 0,
-    "_sizeTypeY": 0,
     "_offsetMin": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -336,7 +334,6 @@
       "x": 0,
       "y": 0
     },
-    "_alignType": 0,
     "_width": 2048,
     "_height": 1536,
     "_id": "28LKW+OFJLh7x2VC0VzwL4"

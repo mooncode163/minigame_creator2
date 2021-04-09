@@ -63,7 +63,7 @@ var TextureUtil = cc.Class({
                     spf.insetRight = obj.right;
                 }
 
-                var lyscale = obj.sprite.node.getComponent(cc.LayoutScale);
+                var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
                 if (lyscale) {
                     lyscale.LayOut();
                 }

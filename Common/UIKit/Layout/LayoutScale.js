@@ -1,25 +1,25 @@
 // var Common = require("Common");
 
-var LayoutScaleType = cc.Enum({
+var LayOutScaleType = cc.Enum({
     //区分大小写
     MIN: 0,
     MAX: 1,
 
 });
 
-var LayoutScale = cc.Class({
-    extends: cc.Component,
+var LayOutScale = cc.Class({
+    extends: cc.LayOutBase,
     editor: CC_EDITOR && {
-        menu: "UIKit/Layout/LayoutScale",
+        menu: "UIKit/Layout/LayOutScale",
         help: " ",
         // inspector: ' ',
     },
     statics: {
         //enum
-        LayoutScaleType: LayoutScaleType,
+        LayOutScaleType: LayOutScaleType,
 
         ScaleImage: function (image, isMaxFit) {
-            // LayoutScale.ScaleNode(image.node, isMaxFit);
+            // LayOutScale.ScaleNode(image.node, isMaxFit);
         },
 
 
@@ -28,11 +28,11 @@ var LayoutScale = cc.Class({
 
     properties: {
 
-        _scaleType: LayoutScaleType.MIN,
+        _scaleType: LayOutScaleType.MIN,
         scaleType: {
             //default 和 get set 不能同时存在
             // default:cc.AlignUP, 
-            type: LayoutScaleType,
+            type: LayOutScaleType,
             get: function () {
                 return this._scaleType;
             },
@@ -79,18 +79,22 @@ var LayoutScale = cc.Class({
         this.LayOut();
     },
     LayOut: function () {
+        if (!this.Enable()) {
+            return;
+        }
+        this._super();
         this.UpdateType(this.scaleType);
     },
 
     UpdateType: function (type) {
         this._scaleType = type;
         switch (this._scaleType) {
-            case LayoutScaleType.MIN:
+            case LayOutScaleType.MIN:
                 {
                     this.ScaleNode(this.node, false);
                 }
                 break;
-            case LayoutScaleType.MAX:
+            case LayOutScaleType.MAX:
                 {
                     this.ScaleNode(this.node, true);
                 }
@@ -135,4 +139,4 @@ var LayoutScale = cc.Class({
 
 });
 
-cc.LayoutScale = module.export = LayoutScale; 
+cc.LayOutScale = module.export = LayOutScale; 

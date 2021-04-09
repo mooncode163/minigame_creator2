@@ -2,7 +2,7 @@ var UIView = require("UIView");
 var PopViewController = require("PopViewController");
 var AppRes = require("AppRes");
 // var Common = require("Common");
-//var LayoutScale = require("LayoutScale");
+//var LayOutScale = require("LayOutScale");
 //var LayoutAlign = require("LayoutAlign");
 
 cc.Class({

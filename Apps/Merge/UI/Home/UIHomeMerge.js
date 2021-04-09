@@ -1,18 +1,18 @@
 var UIHomeBase = require("UIHomeBase");
 var AppRes = require("AppRes"); 
 var GameViewController = require("GameViewController"); 
-var UIHomeCenterBar = require("UIHomeCenterBar");
 
 cc.Class({
     extends: UIHomeBase,
     properties: { 
         imageLogo: cc.UIImage, 
-        uiCenterBar: UIHomeCenterBar,
+
+        
     },
     onLoad: function () {
         this._super();
         var x, y, w, h;
-
+    // this.node.setContentSize(cc.Common.appSceneMain.sizeCanvas); 
         //物理系统默认是关闭的，手动开启物理系统 
         cc.Common.EnablePhysic(true, false);
         var manager = cc.director.getCollisionManager();
@@ -26,8 +26,8 @@ cc.Class({
         // this.imageLogo.UpdateImage2(pic);
         cc.Debug.Log("UIHomeMerge onLoad");
         this.LayOut();  
-
-
+        // this.LoadCenterBar();
+        this.LoadSideBar();
 
     },
 
@@ -40,7 +40,7 @@ cc.Class({
        
     },
 
-      
+
 
 });
 

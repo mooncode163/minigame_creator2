@@ -44,6 +44,9 @@ var LayOutBetween = cc.Class({
     },
     LayOut: function () {
         /// this.col = this.GetChildCount(); 
+        if (!this.Enable()) {
+            return;
+        }
         this._super();
         var x, y, w, h;
         cc.Debug.Log("LayOutBetween LayOut");

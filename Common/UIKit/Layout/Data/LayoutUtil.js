@@ -86,6 +86,90 @@ var LayoutUtil = cc.Class({
         return (v1 + v2) / 2;
     },
 
+
+
+    //两个对象之间的宽度或者高度 cc.Node
+    GetBetweenTwoTargetSize: function (node1, node2, isHeight) {
+        var objDown, objUp;
+        var pos1 = node1.getPosition();
+        var pos2 = node2.getPosition();
+        if (pos1.y < pos2.y) {
+            objDown = node1;
+            objUp = node2;
+        }
+        else {
+            objDown = node2;
+            objUp = node1;
+        }
+        var pos = objDown.getPosition();
+        var size = objDown.getBoundingBox();
+        var y1 = pos.y + size.height / 2;
+        var x1 = pos.x + size.width / 2;
+
+        // objUp
+        pos = objUp.getPosition();
+        size = objUp.getBoundingBox();
+        var y2 = pos.y - size.height / 2;
+        var x2 = pos.x - size.width / 2;
+
+        var ret = 0;
+        if (isHeight) {
+            ret = Math.abs(y1 - y2);
+        }
+        else {
+            ret = Math.abs(x1 - x2);
+        }
+
+        return ret;
+    },
+
+
+    //边界和对象之间的宽度或者高度 type cc.LayOutSize.LayOutSizeSideType
+    GetBetweenSideAndTargetSize: function (node, type) {
+        var v1 = 0, v2 = 0;
+        var size = node.getBoundingBox(); 
+        var pos = node.getPosition();
+        var sizeParent = node.parent.getBoundingBox(); 
+        var w_parent = sizeParent.width;
+        var h_parent = sizeParent.height; 
+        switch (type) {
+            case cc.LayOutSize.LayOutSizeSideType.LEFT:
+                {
+                    //左边界
+                    v1 = -w_parent / 2;
+                    v2 = pos.x - size.width / 2;
+                }
+                break;
+            case cc.LayOutSize.LayOutSizeSideType.RIGHT:
+                {
+                    //右边界
+                    v1 = w_parent / 2;
+                    v2 = pos.x + size.width / 2;
+                }
+                break;
+            case cc.LayOutSize.LayOutSizeSideType.UP:
+                {
+                    //上边界
+                    v1 = h_parent / 2;
+                    v2 = pos.y + size.height / 2;
+                }
+                break;
+            case cc.LayOutSize.LayOutSizeSideType.DOWN:
+                {
+                    //下边界
+                    v1 = -h_parent / 2;
+                    v2 = pos.y - size.height / 2;
+                }
+                break;
+        }
+
+        var ret = 0;
+
+        ret = Math.abs(v1 - v2);
+
+        return ret;
+    },
+
     GetChildCount: function (node, includeHide = true) {
         var count = 0;
         for (var i = 0; i < node.children.length; i++) {
@@ -134,4 +218,4 @@ LayoutUtil.main = function () {
     return LayoutUtil._main;
 }
 
-cc.LayoutUtil = module.export = LayoutUtil; 
+cc.LayoutUtil = module.export = LayoutUtil;

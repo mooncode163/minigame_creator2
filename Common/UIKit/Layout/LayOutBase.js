@@ -67,6 +67,14 @@ var LayOutBase = cc.Class({
 
         enableLayout: true,
         enableHide: true,//是否包含Hide true 包含 false  不包含
+
+        // 选择横屏配置参数
+        enableLandscape:false,
+
+        isOnlyForPortrait:false,
+        isOnlyForLandscape:false,
+        
+        
         space: cc.Vec2,
         // align: cc.AlignNONE,
         align: {
@@ -94,6 +102,40 @@ var LayOutBase = cc.Class({
     },
     LayOut: function () {
     },
+
+    IsUseLandscape: function () {
+        var ret = false;
+        if (cc.Device.main.isLandscape&&this.enableLandscape)
+        {
+            ret = true;
+        }
+        return ret;
+    },
+ 
+
+    Enable: function () {
+        var ret = true;
+        if (!this.enableLayout)
+        {
+            ret = false;
+        }
+        if (this.isOnlyForLandscape)
+        {
+            if (!cc.Device.main.isLandscape)
+            {
+                ret = false;
+            }
+        }
+        if (this.isOnlyForPortrait)
+        {
+            if (cc.Device.main.isLandscape)
+            {
+                ret = false;
+            }
+        }
+        return ret;
+    },
+ 
 
 
 });

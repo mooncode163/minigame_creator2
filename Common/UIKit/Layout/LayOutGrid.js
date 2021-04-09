@@ -41,12 +41,12 @@ var LayOutGrid = cc.Class({
     // },
 
     LayOut: function () {
-
-        var idx = 0;
-        var r = 0, c = 0;
-        if (!this.enableLayout) {
+        if (!this.Enable()) {
             return;
         }
+        this._super();
+        var idx = 0;
+        var r = 0, c = 0; 
 
         for (var i = 0; i < this.node.children.length; i++) {
             var child = this.node.children[i];

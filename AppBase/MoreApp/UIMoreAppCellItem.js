@@ -37,7 +37,7 @@ cc.Class({
                 return;
             }
             this.imageBg.spriteFrame = new cc.SpriteFrame(tex);
-            var lyscale = this.imageBg.node.getComponent(cc.LayoutScale);
+            var lyscale = this.imageBg.node.getComponent(cc.LayOutScale);
             if (lyscale) {
                 lyscale.LayOut();
             }

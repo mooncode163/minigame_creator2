@@ -146,6 +146,13 @@ var UIView = cc.Class({
         this.LayOut();
     },
 
+    // UIView parent
+    SetParent: function (parent) {
+        this.node.parent = parent.node;
+        this.LayOut();
+    },
+    
+
     //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
     GetKeyColor(def) {
         var ret = cc.Color.BLACK;

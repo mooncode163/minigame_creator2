@@ -23,34 +23,34 @@ cc.Class({
         this._super();
         var x, y, w, h;
         
-        this.btnShare.node.active = false;
-        if (cc.Common.main().isWeiXin) {
-            this.btnMore.node.active = false;
-            this.btnNoAd.node.active = false;
-        }
+        // this.btnShare.node.active = false;
+        // if (cc.Common.main().isWeiXin) {
+        //     this.btnMore.node.active = false;
+        //     this.btnNoAd.node.active = false;
+        // }
 
         this.LayOut();
 
     },
 
     start: function () {
-        this.UpdateBtnMusic();
-        this.UpdateBtnSound();
+        // this.UpdateBtnMusic();
+        // this.UpdateBtnSound();
     },
     LayOut: function () {
         this._super();
         var size = this.node.getContentSize();
         var x, y, w, h;
-        var ly = this.node.getComponent(cc.LayOutGrid);
-        var rctran = this.node.getComponent(cc.RectTransform);
+        // var ly = this.node.getComponent(cc.LayOutGrid);
+        // var rctran = this.node.getComponent(cc.RectTransform);
         // rctran.LayOut();
-        cc.Debug.Log("UIHomeSideBar  w=  " + rctran.width + " h=" + rctran.height);
-        if (ly != null) {
-            ly.row = cc.LayoutUtil.main().GetChildCount(this.node, false);
-            cc.Debug.Log("GetChildCount ly.row=" + ly.row);
-            //有些按钮隐藏后重新布局
-            ly.LayOut();
-        }
+        // cc.Debug.Log("UIHomeSideBar  w=  " + rctran.width + " h=" + rctran.height);
+        // if (ly != null) {
+        //     ly.row = cc.LayoutUtil.main().GetChildCount(this.node, false);
+        //     cc.Debug.Log("GetChildCount ly.row=" + ly.row);
+        //     //有些按钮隐藏后重新布局
+        //     ly.LayOut();
+        // }
 
     },
 

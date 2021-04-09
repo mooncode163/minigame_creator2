@@ -2,7 +2,7 @@ var UIView = require("UIView");
 var PopViewController = require("PopViewController");
 var AppRes = require("AppRes");
 // var Common = require("Common");
-//var LayoutScale = require("LayoutScale");
+//var LayOutScale = require("LayOutScale");
 //var LayoutAlign = require("LayoutAlign");
 
 var UISetting = cc.Class({
@@ -129,7 +129,7 @@ var UISetting = cc.Class({
 
 
     LayOut: function () {
-        //LayoutScale.ScaleImage(this.imageBg, true);
+        //LayOutScale.ScaleImage(this.imageBg, true);
     },
 
 

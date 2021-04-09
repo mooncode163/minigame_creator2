@@ -112,7 +112,7 @@ var AppSceneBase = cc.Class({
             // this.sizeCanvas.height = size.height;
             // cc.Debug.Log("canvasMain size=" + size);
             let screenSize = cc.view.getVisibleSize();//屏幕分辨率
-            cc.Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height);
+        
 
             // this.sizeCanvas.width = screenSize.width * this.sizeCanvas.height / screenSize.height;
             // cc.Debug.Log("sizeCanvas size=" + this.sizeCanvas);
@@ -136,7 +136,10 @@ var AppSceneBase = cc.Class({
                 this.canvasMain.fitWidth = false;
             }
 
-            this.sizeCanvas = cc.Common.GetSizeCanvas(this.canvasMain);
+            this.sizeCanvas = cc.Common.GetSizeCanvas(this.canvasMain); 
+            this.rootNode.setContentSize(this.sizeCanvas);
+            cc.Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height+" sizeCanvas="+this.sizeCanvas);
+   
         }
 
         // //config

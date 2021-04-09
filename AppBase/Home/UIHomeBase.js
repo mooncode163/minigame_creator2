@@ -1,8 +1,10 @@
 var UIView = require("UIView");
 // var Common = require("Common"); 
-//var LayoutScale = require("LayoutScale");
+//var LayOutScale = require("LayOutScale");
 var UIHomeAppCenter = require("UIHomeAppCenter");
 var GameViewController = require("GameViewController");
+var UIHomeCenterBar = require("UIHomeCenterBar");
+var UIHomeSideBar = require("UIHomeSideBar");
 
 cc.Class({
     extends: UIView,
@@ -24,6 +26,8 @@ cc.Class({
         imageNameBg: cc.UIImage,// cc.Sprite,
         textName: cc.UIText,//cc.Label,
         uiPrefabAppCenter: cc.Prefab,
+        uiCenterBar: UIHomeCenterBar,
+        uiSideBar: UIHomeSideBar,
 
     },
 
@@ -90,8 +94,45 @@ cc.Class({
 
     },
 
+
+    
+
     start() {
        // var hteXT = cc.Common.GetTextHeight(this.textName.text, this.textName.fontSize);
+    },
+
+
+    LoadCenterBar: function () {
+        // var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;
+        var key = "UIHomeCenterBar";
+        // var strPrefab = cc.ConfigPrefab.main().GetPrefab(key);
+        // cc.Debug.Log("HomeViewController LoadPrefab=" + strPrefab);
+        cc.PrefabCache.main.LoadByKey(key, function (err, prefab) {
+            if (err) {
+                cc.Debug.Log("LoadPrefab err:" + err.message || err);
+                return;
+            } 
+            var node = cc.instantiate(prefab);
+            this.uiCenterBar = node.getComponent(UIHomeCenterBar);  
+            this.uiCenterBar.SetParent(this);
+        }.bind(this)
+        );
+
+ 
+    },
+
+    LoadSideBar: function () { 
+        key = "UIHomeSideBar"; 
+        cc.PrefabCache.main.LoadByKey(key, function (err, prefab) {
+            if (err) {
+                cc.Debug.Log("LoadPrefab err:" + err.message || err);
+                return;
+            } 
+            var node = cc.instantiate(prefab);
+            this.uiSideBar = node.getComponent(UIHomeSideBar);  
+            this.uiSideBar.SetParent(this);
+        }.bind(this)
+        );
     },
 
     LoadPrefabAppCenter: function () {
@@ -130,7 +171,7 @@ cc.Class({
 
     LayOut: function () {
         this._super();
-        //  LayoutScale.ScaleImage(this.imageBg,true);
+        //  LayOutScale.ScaleImage(this.imageBg,true);
         // var topbar_h = this.GetTopBarHeight();
         // var size = this.node.getContentSize();
         // var x, y, w, h;
