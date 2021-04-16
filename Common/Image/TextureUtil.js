@@ -43,15 +43,17 @@ var TextureUtil = cc.Class({
          }p
      */
         UpdateSpriteImage: function (obj) {
-            var pic = obj.pic;
+            var pic = cc.FileUtil.GetFileBeforeExtWithOutDot(obj.pic);
             cc.Debug.Log("UpdateSpriteImage pic=" + pic);
             cc.TextureCache.main.Load(pic, function (err, tex) {
                 if (err) {
+                    cc.Debug.Log("UpdateSpriteImage err=" + err);
                     if (obj.fail != null) {
                         obj.fail();
                     }
                     return;
                 }
+                cc.Debug.Log("UpdateSpriteImage success");
                 obj.sprite.spriteFrame = new cc.SpriteFrame(tex);
                 var spf = obj.sprite.spriteFrame;
                 if (obj.type==cc.Sprite.Type.SLICED) {
@@ -62,7 +64,7 @@ var TextureUtil = cc.Class({
                     spf.insetLeft = obj.left;
                     spf.insetRight = obj.right;
                 }
-
+                obj.sprite.node.setContentSize(tex.width, tex.height);
                 var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
                 if (lyscale) {
                     lyscale.LayOut();

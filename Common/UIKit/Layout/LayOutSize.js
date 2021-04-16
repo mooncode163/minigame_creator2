@@ -274,7 +274,7 @@ var LayOutSize = cc.Class({
 
 
 
-        switch (this.typeX) {
+        switch (this.typeY) {
             case LayOutSizeType.MATCH_CONTENT:
                 {
                     h = size.height;

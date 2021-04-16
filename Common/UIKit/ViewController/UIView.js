@@ -79,7 +79,9 @@ var UIView = cc.Class({
         //this.node.setContentSize(this.node.parent.getContentSize());
         // this.node.view = this;
     },
-
+    start: function () {
+        // this._super();
+    },
     //UIViewController
     SetController: function (con) {
         this.controller = con;
@@ -160,7 +162,7 @@ var UIView = cc.Class({
             ret = def;
         }
         if (!cc.Common.isBlankString(this.keyColor)) {
-            ret = cc.ColorConfig.main().GetColorSync(this.keyColor);
+            ret = cc.ColorConfig.main().GetColor(this.keyColor);
         }
         return ret;
     },

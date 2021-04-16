@@ -26,18 +26,14 @@ var HomeViewController = cc.Class({
         //  this.LoadPrefab();
         // cc.CloudRes.main().StartDownload();
     },
-    CreateUI: function () {
-        cc.Debug.Log("HomeViewController CreateUI");
+
+    CreateUIInternal: function () {
         var node = cc.instantiate(this.uiPrefab);
         this.ui = node.getComponent(UIHomeBase);
         this.ui.SetController(this);
-        cc.LevelManager.main().StartParsePlace(function () {
-            cc.LevelManager.main().StartParseGuanka(null);
-        }.bind(this)
-        );
 
-        // CloudResViewController.main().Show(null, null);
-        if (this.runCount == 0) {
+         // CloudResViewController.main().Show(null, null);
+         if (this.runCount == 0) {
             //至少在home界面显示一次视频广告
             //AdKitCommon.main.callbackAdVideoFinish = OnAdKitAdVideoFinish;
             //   if (uiHome != null)
@@ -53,6 +49,17 @@ var HomeViewController = cc.Class({
 
         }
         this.runCount++;
+    },
+
+    CreateUI: function () {
+        cc.Debug.Log("HomeViewController CreateUI");
+        cc.LevelManager.main().StartParsePlace(function () { 
+            cc.LevelManager.main().StartParseGuanka(function () {
+                this.CreateUIInternal();
+            }.bind(this)
+            ); 
+        }.bind(this)
+        );
     },
 
     LoadPrefabDefault: function () {

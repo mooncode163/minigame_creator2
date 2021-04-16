@@ -1,10 +1,10 @@
 var UIView = require("UIView");
 
 
-var UIImage = cc.Class({
+var UISprite = cc.Class({
     extends: UIView,//cc.Component,
     editor: CC_EDITOR && {
-        menu: "UIKit/UIImage/UIImage",
+        menu: "UIKit/UISprite/UISprite",
         help: " ",
         // inspector: ' ',
     },
@@ -12,7 +12,7 @@ var UIImage = cc.Class({
 
     },
     properties: {
-        image: cc.Sprite,
+        sprite: cc.Sprite,
         keyImage2: "",
     },
 
@@ -61,8 +61,7 @@ var UIImage = cc.Class({
                 }.bind(this),
             });
         }
-    }
-    ,
+    },
 
     UpdateImage: function (pic,board=null) {
         if (!cc.Common.isBlankString(pic)) {
@@ -81,10 +80,9 @@ var UIImage = cc.Class({
         }
     }
     ,
-    
     UpdateImageObj: function (obj) {
         cc.TextureUtil.UpdateSpriteImage({
-            sprite: this.image,
+            sprite: this.sprite,
             pic: obj.pic,
             type: obj.type,//SLICED
             left: obj.left,
@@ -126,7 +124,7 @@ var UIImage = cc.Class({
 
 });
 
-cc.UIImage = module.export = UIImage;
+cc.UISprite = module.export = UISprite;
 
 
 

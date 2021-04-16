@@ -60,19 +60,8 @@ cc.Class({
     },
 
 
-    GotoGame: function () {
-        // cc.GameManager.gameMode = mode;
-        cc.LevelManager.main().StartParsePlace(function () {
-            this.GotoGameByModeInteranl();
-        }.bind(this)
-        );
-    },
-    GotoGameByModeInteranl: function () {
-        if (this.controller != null) {
-            var navi = this.controller.naviController;
-            navi.Push(GameViewController.main());
-        }
-    },
+  
+
  
     OnClickBtnAddLove: function (event, customEventData) {
     },
@@ -85,9 +74,7 @@ cc.Class({
 
     
 
-    OnClickBtnPlay: function (event, customEventData) { 
-        this.GotoGame(); 
-    },
+  
     
 
 });

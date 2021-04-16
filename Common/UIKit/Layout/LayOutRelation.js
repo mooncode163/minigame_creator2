@@ -70,7 +70,8 @@ var LayOutRelation = cc.Class({
         x = pt.x;
         y = pt.y;
     
-        var rctran = this.node.getComponent(cc.RectTransform);
+        // var rctran = this.node.getComponent(cc.RectTransform);
+        var rctran = this.node.getBoundingBox();
         // if (rctran == null) {
         //     return;
         // }
@@ -78,12 +79,15 @@ var LayOutRelation = cc.Class({
         h = rctran.height;
         var w_parent = 0;
         var h_parent = 0;
-        var rctranParent = this.node.parent.getComponent(cc.RectTransform);
-        if (rctranParent != null)
-        {
-              w_parent = rctranParent.width;
-              h_parent = rctranParent.height;
-        }
+        // var rctranParent = this.node.parent.getComponent(cc.RectTransform);
+        var rectParent = this.node.parent.getBoundingBox();
+        w_parent = rectParent.width;
+        h_parent = rectParent.height;
+        // if (rctranParent != null)
+        // {
+        //       w_parent = rctranParent.width;
+        //       h_parent = rctranParent.height;
+        // }
   
         cc.Debug.Log("this.type="+this.type+ " w_parent="+w_parent+" h_parent="+h_parent+" w="+w);
         switch (this.type) {
@@ -97,7 +101,8 @@ var LayOutRelation = cc.Class({
                         x =   w_parent / 2 - w / 2 - this.offset.x;
                     }
                     if (this.align == cc.Align.UP) {
-                        y =  + h_parent / 2 - h / 2 - this.offset.y;
+                        cc.Debug.Log("Align.UP this.type="+this.type+ " w_parent="+w_parent+" h_parent="+h_parent+" h="+h);
+                        y =  h_parent / 2 - h / 2 - this.offset.y;
                     }
                     if (this.align == cc.Align.DOWN) {
                         y =  - h_parent / 2 + h / 2 + this.offset.y;

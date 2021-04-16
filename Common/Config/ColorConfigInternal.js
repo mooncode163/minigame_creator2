@@ -31,9 +31,9 @@ fail: function () {
         var filepath = obj.filepath
         cc.Debug.Log("ColorConfig:filepath =" + filepath);
         //去除后缀
-        // filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         //cc.JsonAsset
-        cc.resources.load(filepath, function (err, rootJson) {
+        cc.resources.load(key, function (err, rootJson) {
             if (err) {
                 cc.Debug.Log("ColorConfig:err=" + err);
                 // return;

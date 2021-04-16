@@ -35,7 +35,8 @@ var TextureCache = cc.Class({
     // * loadRes(url: string, completeCallback: (error: Error, resource: any) => void): void
     //Texture2D
     Load: function (filepath, completeCallback) {
-        var key = filepath;
+        // var key = filepath;
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         var ret = null;
 
         if (this.isHttpUrl(filepath)) {
@@ -91,8 +92,8 @@ var TextureCache = cc.Class({
     LoadCache: function (filepath, completeCallback) {
         this.Init();
         var ret = null;
-        var key = filepath;
-
+        // var key = filepath;
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         if (this.dicItem.Contains(key) == true) {
             ret = this.dicItem.Get(key);
             cc.Debug.Log("TextureCache  load  from cache");
@@ -129,12 +130,12 @@ var TextureCache = cc.Class({
     LoadNotCache: function (filepath, completeCallback) {
         this.Init();
         var ret = null;
-        var key = filepath;
-
+        // var key = filepath;
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         {
             cc.Debug.Log("TextureCache LoadNotCache key="+key);
             //加载图片： https://www.jianshu.com/p/8bd1eb0240d7
-            cc.resources.load(filepath, cc.Texture2D, function (err, tex) {
+            cc.resources.load(key, cc.Texture2D, function (err, tex) {
                 //cc.url.raw('res/textures/content.png')
                 if (err) {
                     cc.Debug.Log("TextureCache loadRes fail");

@@ -21,10 +21,14 @@ cc.Class({
             default: null,
             type: cc.Node
         },
+
+        // textTitle: {
+        //     default: null,
+        //     type: cc.UIText
+        // },
         btnFrendBoard: cc.Button,
         imageBg: cc.UIImage,
-        imageNameBg: cc.UIImage,// cc.Sprite,
-        textName: cc.UIText,//cc.Label,
+        imageNameBg: cc.UIImage,// cc.Sprite, 
         uiPrefabAppCenter: cc.Prefab,
         uiCenterBar: UIHomeCenterBar,
         uiSideBar: UIHomeSideBar,
@@ -38,14 +42,14 @@ cc.Class({
         var x, y, w, h;
 
         var size = this.node.getContentSize();
-        if (this.textName == null) {
-            return;
-        }
-        var name = cc.Language.main().GetString("APP_NAME");
-        if (cc.Device.main.isLandscape) {
-            name = cc.Language.main().GetString("APP_NAME_HD");
-        }
-        this.textName.text = name;
+        // if (this.textTitle == null) {
+        //     return;
+        // }
+        // var name = cc.Language.main().GetString("APP_NAME");
+        // if (cc.Device.main.isLandscape) {
+        //     name = cc.Language.main().GetString("APP_NAME_HD");
+        // }
+        // this.textTitle.text = name;
         var ret = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, false);
         var ret = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, false);
         cc.Debug.Log("KEY_BACKGROUND_MUSIC home=" + ret);
@@ -75,10 +79,10 @@ cc.Class({
         // this.LayOut();
         var x_start, y_start;
 
-        h = this.imageNameBg.node.getContentSize().height;
-        x_start = 0;
-        y_start = size.height / 4;
-        this.imageNameBg.node.setPosition(x_start, y_start);
+        // h = this.imageNameBg.node.getContentSize().height;
+        // x_start = 0;
+        // y_start = size.height / 4;
+        // this.imageNameBg.node.setPosition(x_start, y_start);
 
         cc.AudioPlay.main().PlayBgMusic();
 
@@ -90,7 +94,7 @@ cc.Class({
 
 
         //home app center
-        this.LoadPrefabAppCenter();
+        // this.LoadPrefabAppCenter();
 
     },
 
@@ -98,7 +102,7 @@ cc.Class({
     
 
     start() {
-       // var hteXT = cc.Common.GetTextHeight(this.textName.text, this.textName.fontSize);
+       // var hteXT = cc.Common.GetTextHeight(this.textTitle.text, this.textTitle.fontSize);
     },
 
 
@@ -179,19 +183,19 @@ cc.Class({
         // var pt = this.GetPosOfImageName();
         // //  this.imageNameBg.node.setPosition(pt.x, pt.y);
 
-        // // this.textName.node.setPosition(this.imageNameBg.node.getPosition());
+        // // this.textTitle.node.setPosition(this.imageNameBg.node.getPosition());
 
-        // // var rctran = this.textName.getComponent(cc.RectTransform);
+        // // var rctran = this.textTitle.getComponent(cc.RectTransform);
         // // if (rctran) {
         // //     rctran.LayOut();
         // // }
-        // //TextName
-        // //   size = this.textName.node.getContentSize();
-        // //  cc.Debug.Log("size TextName= " + size);
+        // //textTitle
+        // //   size = this.textTitle.node.getContentSize();
+        // //  cc.Debug.Log("size textTitle= " + size);
 
         // var ratio = 1.5;
-        // var fontsize = this.textName.fontSize;
-        // w = cc.Common.GetTextWidth(this.textName.text, fontsize) + fontsize * 3;
+        // var fontsize = this.textTitle.fontSize;
+        // w = cc.Common.GetTextWidth(this.textTitle.text, fontsize) + fontsize * 3;
         // var w_max = size.width * 0.7;
         // if (w > w_max) {
         //     w = w_max;

@@ -31,14 +31,19 @@ var UIGameBase = cc.Class({
     onLoad: function () {
         this._super();
         this.node.setContentSize(this.node.parent.getContentSize());
+        this.LoadGamePrefab();
         
     },
     start: function () {
-        this.UpdateBtnMusic();
+        // this.UpdateBtnMusic();
     },
     LoadGamePrefab: function () {
-        var strPrefab = "AppCommon/Prefab/Game/Game" + cc.Config.main().appType;
-        cc.PrefabCache.main.Load(strPrefab, function (err, prefab) {
+        // var strPrefab = "AppCommon/Prefab/Game/Game" + cc.Config.main().appType;
+
+        var key = "Game"+ cc.Config.main().appType;
+        // var strPrefab = cc.ConfigPrefab.main().GetPrefab(key);
+        // cc.Debug.Log("HomeViewController LoadPrefab=" + strPrefab);
+        cc.PrefabCache.main.LoadByKey(key, function (err, prefab) {
             if (err) {
                 cc.Debug.Log("LoadGamePrefab err=" + err.message || err);
                 return;
@@ -104,10 +109,7 @@ var UIGameBase = cc.Class({
 
     LoadLanguageGame: function () {
         var info = cc.LevelManager.main().GetPlaceItemInfo(cc.LevelManager.main().placeLevel);
-        var filepath = cc.Common.GAME_RES_DIR + "/language/" + info.language;//+ ".csv";
-        cc.Debug.Log("LoadLanguageGame::filepath=" + filepath);
-        cc.Language._game = new cc.Language();
-        cc.Language._game.Init2(filepath, this.LoadLanguageGameDidFinish.bind(this));
+    
 
     },
 

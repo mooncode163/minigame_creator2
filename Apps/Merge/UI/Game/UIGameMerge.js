@@ -18,8 +18,8 @@ var UIGameMerge = cc.Class({
     onLoad: function () {
         this._super();
         UIGameMerge._main = this;
-        this.LoadLanguageGame(); 
-        this.textTitle.node.active = false;
+        // this.LoadLanguageGame(); 
+        // this.textTitle.node.active = false;
     },
     start: function () {
         this._super();
@@ -28,13 +28,11 @@ var UIGameMerge = cc.Class({
 
     CreateGame: function () {
         var node = cc.instantiate(this.gamePrefab);
-        this.game = node.getComponent(GameShapeColor);
-        this.game.node.parent = this.node;
-        this.game.languageColor = this.languageColor;
-        this.game.cbGameDidError = this.OnGameShapeColorDidError.bind(this);
+        this.game = node.getComponent(GameMerge);
+        this.game.node.parent = this.node; 
         //zorder 让imageBg 显示在最底层，game显示在UI下面
-        this.imageBg.node.zIndex = -20;
-        this.game.node.zIndex = -10;
+        // this.imageBg.node.zIndex = -20;
+        // this.game.node.zIndex = -10;
         this.isShowGame = true;
         this.callbackGuankaFinish = null;
         this.UpdateGuankaLevel(cc.LevelManager.main().gameLevel);
@@ -45,22 +43,20 @@ var UIGameMerge = cc.Class({
 
     UpdateGuankaLevel: function (level) {
         cc.Debug.Log("UIGameShapeColor::UpdateGuankaLevel");
-        this._super();
-        this.game.listShape = cc.GameLevelParse.main().listShape;
-        this.game.listColor = cc.GameLevelParse.main().listColor;
-        this.game.textTitle = this.textTitle;
-        this.textTitle.node.active = false;
+        this._super(); 
+        // this.game.textTitle = this.textTitle;
+        // this.textTitle.node.active = false;
 
-        this.game.objGameFinish = {
-            onWin: function (ui) {
-                this.OnGameWinFinish(ui, false);
-            }.bind(this),
-            onFail: function (ui) {
-                this.OnGameWinFinish(ui, true);
-            }.bind(this),
-        };
+        // this.game.objGameFinish = {
+        //     onWin: function (ui) {
+        //         this.OnGameWinFinish(ui, false);
+        //     }.bind(this),
+        //     onFail: function (ui) {
+        //         this.OnGameWinFinish(ui, true);
+        //     }.bind(this),
+        // };
 
-        this.game.LoadGame(cc.GameManager.gameMode);
+        // this.game.LoadGame(cc.GameManager.gameMode);
       
 
     },

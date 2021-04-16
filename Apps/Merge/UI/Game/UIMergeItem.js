@@ -5,8 +5,14 @@ var UIMergeItem = cc.Class({
     statics: { 
     },
 
-    properties: { 
-        imageItem: cc.UIImage,  
+    properties: {   
+        nodeItem:cc.Node,
+
+        spriteItem: {
+            default: null,
+            type: cc.UISprite
+        },
+        
         isNew:false,
         type:0,
     },
@@ -21,6 +27,11 @@ var UIMergeItem = cc.Class({
         this._super();
     },  
 
+    UpdateImage: function (pic) {
+        this.spriteItem = this.nodeItem.getComponent(cc.UISprite);
+         this.spriteItem.UpdateImage(pic);
+    }, 
+    
     EnableGravity: function (isEnable) {
         var bd = this.node.getComponent(cc.RigidBody);
         // bd.bodyType = isEnable ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
