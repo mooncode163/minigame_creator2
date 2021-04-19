@@ -87,6 +87,9 @@ var UIGameBase = cc.Class({
             cc.AudioPlay.main().PlayStopBgMusic();
         }
     },
+    OnClickBtnShare: function (event, customEventData) {
+        cc.Share.main().ShareImageText("", cc.AppRes.SHARE_TITLE, cc.AppRes.SHARE_IMAGE_URL, "");
+    },
 
     //guanka  
 
