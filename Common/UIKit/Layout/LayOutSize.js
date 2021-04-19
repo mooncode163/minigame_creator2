@@ -169,7 +169,8 @@ var LayOutSize = cc.Class({
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
-
+        w_parent -= (this.offsetMin.x + this.offsetMax.x);
+        h_parent -= (this.offsetMin.y + this.offsetMax.y);
         // if (rctran == null) {
         //     return;
         // }
@@ -264,7 +265,8 @@ var LayOutSize = cc.Class({
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
-
+        w_parent -= (this.offsetMin.x + this.offsetMax.x);
+        h_parent -= (this.offsetMin.y + this.offsetMax.y);
         // if (rctran == null) {
         //     return;
         // }

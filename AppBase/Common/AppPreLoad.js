@@ -35,7 +35,7 @@ fail: function () {
         // this.objCallBack = obj;
         var w, h;
         this.countLoad = 0;
-        this.countMax = 5; 
+        this.countMax = 6; 
 
         //config
         // this.countMax++;
@@ -156,7 +156,19 @@ fail: function () {
             }, 
             });
             
- 
+
+         // Audio
+        // this.countMax++;
+        cc.ConfigAudio.main().Load(  
+            {  
+            success: function (p) {  
+                cc.Debug.Log("AppPreLoad ConfigAudio success");
+                this.OnFinish(obj);
+            }.bind(this),
+            fail: function () {
+                cc.Debug.Log("AppPreLoad ConfigAudio fail");
+            }, 
+            });
 
     },
     

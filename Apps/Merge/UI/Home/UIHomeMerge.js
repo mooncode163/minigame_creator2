@@ -36,7 +36,8 @@ var UIHomeMerge =cc.Class({
         cc.Common.EnablePhysic(true, false);
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        // manager.enabledDebugDraw = true;
+        manager.enabledDebugDraw = true;
+        // manager.enabledDrawBoundingBox = true; 
       
         var info = cc.GameLevelParse.main().GetLastItemInfo();
         var pic = cc.GameLevelParse.main().GetImagePath(info.id); 
@@ -61,6 +62,32 @@ var UIHomeMerge =cc.Class({
 
     start: function () {
         this._super();
+        // this.ShowGameWinAlert();
+    },
+    ShowGameWinAlert: function () {
+        var title = cc.Language.main().GetString("STR_UIVIEWALERT_TITLE_GAME_FINISH");
+        var msg = cc.Language.main().GetString("STR_UIVIEWALERT_MSG_GAME_FINISH");
+        var yes = cc.Language.main().GetString("STR_UIVIEWALERT_YES_GAME_FINISH");
+        var no = cc.Language.main().GetString("STR_UIVIEWALERT_NO_GAME_FINISH");
+        cc.Debug.Log("game finish ShowFull");
+
+        cc.ViewAlertManager.main().ShowFull({
+            title: title,
+            msg: msg,
+            yes: yes,
+            no: no,
+            isShowBtnNo: true,
+            name: "STR_KEYNAME_VIEWALERT_GAME_FINISH",
+            finish: function (ui, isYes) {
+                if (isYes) {
+                    cc.LevelManager.main().GotoNextLevelWithoutPlace();
+                } else {
+                    //replay
+                    cc.GameManager.main().GotoPlayAgain();
+                }
+            }.bind(this),
+        });
+
     },
 
     LayOut: function () {

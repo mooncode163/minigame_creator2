@@ -20,9 +20,8 @@ var AudioCache = cc.Class({
     // * loadRes(url: string, completeCallback: (error: Error, resource: any) => void): void
     Load: function (filepath, completeCallback) {
         this.Init();
-        var ret = null;
-        var key = filepath;
-
+        var ret = null; 
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         if (this.dicItem.Contains(key) == true) {
             ret = this.dicItem.Get(key);
             cc.Debug.Log("AudioCache  load  from cache");
@@ -31,9 +30,9 @@ var AudioCache = cc.Class({
             }
         } else {
 
-            cc.resources.load(filepath, cc.AudioClip, function (err, audioClip) {
+            cc.resources.load(key, cc.AudioClip, function (err, audioClip) {
                 if (err) {
-                    cc.Debug.Log("AudioCache loadRes fail");
+                    cc.Debug.Log("AudioCache loadRes fail key="+key);
                     cc.Debug.Log(err.message || err);
                     if (completeCallback) {
                         completeCallback(err, audioClip);

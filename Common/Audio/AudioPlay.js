@@ -36,7 +36,10 @@ var AudioPlay = cc.Class({
             this.PlayAudioClip(audioClip);
         }.bind(this));
     },
-
+    PlayByKey: function (key) {
+        var filepath = cc.ConfigAudio.main().GetAudio(key);
+        this.PlayFile(filepath)
+    },
 
     PlayCloudAudio: function (file) {
         var filepath = cc.CloudRes.main().audioRootPath + "/" + file;

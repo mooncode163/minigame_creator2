@@ -1,8 +1,15 @@
+ 
+var GameStatus = cc.Enum({
+    //区分大小写
+    Play: 0,
+    Prop: 1,
 
+});
 
 var GameData = cc.Class({
     extends: cc.Object,
     statics: {
+        GameStatus: GameStatus,
         NameDeadLine: "DeadLine",
         NameBoardLine: "BoardLine",
 
@@ -11,9 +18,11 @@ var GameData = cc.Class({
         MaxBounce: 1.0,
         MaxRotation: 360.0,
         ShaderCircle: "Moonma/ImageCircle",
+        isGameFail: false,
     },
 
     properties: {
+        status: GameStatus.Play,
         radiusCustom: 0.4,
         score: 0,
         speed: {

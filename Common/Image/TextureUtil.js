@@ -36,7 +36,7 @@ var TextureUtil = cc.Class({
              right:0,
              top:0,
              bottom:0,
-             success: function () {
+             success: function (tex) {
              },
              fail: function () {
              }, 
@@ -56,21 +56,34 @@ var TextureUtil = cc.Class({
                 cc.Debug.Log("UpdateSpriteImage success");
                 obj.sprite.spriteFrame = new cc.SpriteFrame(tex);
                 var spf = obj.sprite.spriteFrame;
-                if (obj.type==cc.Sprite.Type.SLICED) {
+               
+                if (obj.type==cc.Sprite.Type.SLICED)
+                 {
+                    cc.Debug.Log("pic="+pic+" spf="+spf+" obj.top="+obj.top);
                     spf.type = obj.type;
                     // 纹理的四个边距
                     spf.insetBottom = obj.bottom;
                     spf.insetTop = obj.top;
                     spf.insetLeft = obj.left;
-                    spf.insetRight = obj.right;
+                    spf.insetRight = obj.right; 
                 }
-                obj.sprite.node.setContentSize(tex.width, tex.height);
-                var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
-                if (lyscale) {
-                    lyscale.LayOut();
+
+                // spf.type = cc.Sprite.Type.SLICED;
+                // spf.insetBottom = 64;
+                // spf.insetTop = 64;
+                // spf.insetLeft = 64;
+                // spf.insetRight = 64;
+                if(obj.sprite.node!=null)
+                {
+                    obj.sprite.node.setContentSize(tex.width, tex.height);
+                    var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
+                    if (lyscale) {
+                        lyscale.LayOut();
+                    }
                 }
+             
                 if (obj.success != null) {
-                    obj.success();
+                    obj.success(tex);
                 }
             }.bind(this));
         },

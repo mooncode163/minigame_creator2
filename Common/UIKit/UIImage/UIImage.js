@@ -46,7 +46,10 @@ var UIImage = cc.Class({
         var board = null;
         if (cc.ImageRes.main().IsHasBoard(key)) {
             board = cc.ImageRes.main().GetImageBoard(key);
+            cc.Debug.Log("key="+key+" board="+board);
         }
+
+     
         if (!cc.Common.isBlankString(pic)) {
             this.UpdateImageObj({
                 // pic: cc.CloudRes.main().uiRootPath + "/" + pic,
@@ -91,13 +94,15 @@ var UIImage = cc.Class({
             right: obj.right,
             top: obj.top,
             bottom: obj.bottom,
-            success: function () {
+            success: function (tex) {
+                this.node.setContentSize(tex.width, tex.height);
                 if (obj.success != null) {
                     obj.success();
                 }
                 if (this.objCallBack != null) {
                     this.objCallBack.OnUpdateImageFinish(this);
                 }
+                 
             }.bind(this),
             fail: function () {
                 if (obj.fail != null) {

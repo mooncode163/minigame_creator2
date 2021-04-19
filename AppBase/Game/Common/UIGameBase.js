@@ -21,7 +21,10 @@ var UIGameBase = cc.Class({
         },
         btnMusic: cc.UIButton,
         btnBack: cc.UIButton,
-        imageBg: cc.UIImage,
+
+        //@moon cc.UIImage 等自定义的无法在编辑器里绑定 改成系统的
+        imageBg: cc.Component,
+
         textTitle: cc.UIText,
         callbackGuankaFinish: null,
         callbackPlaceFinish: null,
@@ -36,6 +39,7 @@ var UIGameBase = cc.Class({
     },
     start: function () {
         // this.UpdateBtnMusic();
+        this._super();
     },
     LoadGamePrefab: function () {
         // var strPrefab = "AppCommon/Prefab/Game/Game" + cc.Config.main().appType;

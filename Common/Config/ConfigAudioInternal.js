@@ -3,7 +3,7 @@ var Dictionary = require("Dictionary");
 //var Source = require("Source");
 //var LoadItemInfo = require("LoadItemInfo");
 //creator 解析json： https://blog.csdn.net/foupwang/article/details/79660524
-var ConfigPrefabInternal = cc.Class({ 
+var ConfigAudioInternal = cc.Class({ 
     extends: cc.Object,
     statics: {
         // 声明静态变量  
@@ -25,16 +25,16 @@ var ConfigPrefabInternal = cc.Class({
     Load: function (obj) {   
         var filepath = obj.filepath;    
 
-        cc.Debug.Log("ConfigPrefabInternal:filepath =" + filepath);
+        cc.Debug.Log("ConfigAudioInternal:filepath =" + filepath);
         //去除后缀
         key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         //cc.JsonAsset
         cc.resources.load(key, function (err, rootJson) {
             if (err) {
-                cc.Debug.Log("ConfigPrefabInternal:err=" + err);
+                cc.Debug.Log("ConfigAudioInternal:err=" + err);
                 // return;
             }
-            cc.Debug.Log("ConfigPrefabInternal:rootJson=" + rootJson);
+            cc.Debug.Log("ConfigAudioInternal:rootJson=" + rootJson);
             if (err == null) {
                 this.ParseData(rootJson.json);
             }
@@ -62,7 +62,7 @@ var ConfigPrefabInternal = cc.Class({
     },
     //同步 synchronization
    
-    GetPrefabSync(key) {
+    GetAudioSync(key) {
         return cc.JsonUtil.GetItem(this.jsonRoot, key, ""); 
     },
 
@@ -72,18 +72,18 @@ var ConfigPrefabInternal = cc.Class({
 
 
 //单例对象 方法二
-ConfigPrefabInternal._main = null;
-ConfigPrefabInternal.main = function () {
-    if (!ConfigPrefabInternal._main) {
+ConfigAudioInternal._main = null;
+ConfigAudioInternal.main = function () {
+    if (!ConfigAudioInternal._main) {
         cc.Debug.Log("_main is null");
-        ConfigPrefabInternal._main = new ConfigPrefabInternal();
-        //ConfigPrefabInternal._main.Load(null);
+        ConfigAudioInternal._main = new ConfigAudioInternal();
+        //ConfigAudioInternal._main.Load(null);
 
     } else {
         //cc.Debug.Log("_main is not null");
     }
-    return ConfigPrefabInternal._main;
+    return ConfigAudioInternal._main;
 }
 
-cc.ConfigPrefabInternal = module.export = ConfigPrefabInternal;
+cc.ConfigAudioInternal = module.export = ConfigAudioInternal;
 

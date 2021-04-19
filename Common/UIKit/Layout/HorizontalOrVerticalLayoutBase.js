@@ -88,6 +88,10 @@ var HorizontalOrVerticalLayoutBase = cc.Class({
         var x, y, w, h;
 
         var rctran = this.node.getComponent(cc.RectTransform);
+        if(rctran==null)
+        {
+            rctran = this.node.getContentSize();
+        }
         w = rctran.width;
         h = rctran.height;
         var item_w = 0, item_h = 0, x_left = 0, y_bottom = 0, w_total = 0, h_total = 0;

@@ -103,6 +103,7 @@ var ImageRes = cc.Class({
                 ret = this.imageResCommon.IsHasBoard(key);
             }
         }
+        return ret;
     },
 
     IsContainsKey(key) {
@@ -119,7 +120,7 @@ var ImageRes = cc.Class({
                 ret = this.imageResCommon.ContainsKey(key);
             }
         }
-
+        return ret;
     },
     //异步
     /*
