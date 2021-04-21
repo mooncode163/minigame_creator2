@@ -27,14 +27,14 @@ var ConfigAudioInternal = cc.Class({
 
         cc.Debug.Log("ConfigAudioInternal:filepath =" + filepath);
         //去除后缀
-        key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
+        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         //cc.JsonAsset
         cc.resources.load(key, function (err, rootJson) {
             if (err) {
                 cc.Debug.Log("ConfigAudioInternal:err=" + err);
                 // return;
             }
-            cc.Debug.Log("ConfigAudioInternal:rootJson=" + rootJson);
+            // cc.Debug.Log("ConfigAudioInternal:rootJson=" + rootJson);
             if (err == null) {
                 this.ParseData(rootJson.json);
             }

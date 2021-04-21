@@ -26,17 +26,18 @@ var ImageResInternal = cc.Class({
         var filepath = obj.filepath;
         cc.Debug.Log("ImageRes:filepath =" + filepath);
         // /*
-        if (cc.Common.main().isWeiXin) {
-            // 加载json文件
-            cc.assetManager.loadRemote({ url: filepath, type: "json" }, function (err, rootJson) {
-                this.ParseData(rootJson);
-                // this.GetImageInternal(obj);
-                if(obj.success!=null)
-                {
-                    obj.success(this);
-                }
-            }.bind(this));
-        } else {
+        // if (cc.Common.main().isWeiXin) {
+        //     // 加载json文件
+        //     cc.assetManager.loadRemote({ url: filepath, type: "json" }, function (err, rootJson) {
+        //         this.ParseData(rootJson);
+        //         // this.GetImageInternal(obj);
+        //         if(obj.success!=null)
+        //         {
+        //             obj.success(this);
+        //         }
+        //     }.bind(this));
+        // } else 
+        {
             //cc.JsonAsset   cc.loader.load
             //去除后缀
             filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);

@@ -15,24 +15,24 @@ var MainViewController = cc.Class({
         cc.Debug.Log("Language GetString=" + str);
 
         var isShowClound = false;
-        if (cc.Common.main().isWeiXin) {
-            var isDownload = cc.Common.GetBoolOfKey(cc.AppRes.KEY_DOWNLOAD_CLOUNDRES, false);
-            if (!isDownload) {
-                //第一次 下载资源
-                isShowClound = true;
-            } else {
-                cc.CloudResVersion.main().Load(function () {
-                    var versionNow = cc.Config.main().version;
-                    var versionLocal = cc.CloudResVersion.main().version;
-                    cc.Debug.Log("version: versionNow=" + versionNow + " versionLocal=" + versionLocal);
-                    if (versionNow > versionLocal) {
-                        //需要更新资源 
-                        isShowClound = true;
-                    }
+        // if (cc.Common.main().isWeiXin) {
+        //     var isDownload = cc.Common.GetBoolOfKey(cc.AppRes.KEY_DOWNLOAD_CLOUNDRES, false);
+        //     if (!isDownload) {
+        //         //第一次 下载资源
+        //         isShowClound = true;
+        //     } else {
+        //         cc.CloudResVersion.main().Load(function () {
+        //             var versionNow = cc.Config.main().version;
+        //             var versionLocal = cc.CloudResVersion.main().version;
+        //             cc.Debug.Log("version: versionNow=" + versionNow + " versionLocal=" + versionLocal);
+        //             if (versionNow > versionLocal) {
+        //                 //需要更新资源 
+        //                 isShowClound = true;
+        //             }
 
-                }.bind(this));
-            }
-        }
+        //         }.bind(this));
+        //     }
+        // }
 
         if (isShowClound) {
             this.GotoCloundRes();
