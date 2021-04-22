@@ -131,9 +131,13 @@ var AppSceneBase = cc.Class({
                 this.canvasMain.fitWidth = true;
                 this.canvasMain.fitHeight = false;
             } else {
-                this.canvasMain.designResolution = new cc.size(Math.min(h, h), Math.max(w, h));
-                this.canvasMain.fitHeight = true;
-                this.canvasMain.fitWidth = false;
+                // this.canvasMain.designResolution = new cc.size(Math.min(h, h), Math.max(w, h));
+                // this.canvasMain.fitHeight = true;
+                // this.canvasMain.fitWidth = false;
+
+                this.canvasMain.designResolution = new cc.size(Math.max(w, h), Math.min(w, h));
+                this.canvasMain.fitWidth = true;
+                this.canvasMain.fitHeight = false;
             }
 
             this.sizeCanvas = cc.Common.GetSizeCanvas(this.canvasMain); 

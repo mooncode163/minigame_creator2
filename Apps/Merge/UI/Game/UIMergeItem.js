@@ -21,6 +21,7 @@ var UIMergeItem = cc.Class({
     onLoad: function () {
         this._super();
         this.t = 0;
+        // this.node.zIndex = 100;
         // var manager = cc.director.getCollisionManager();
         // manager.enabled = true;
         // manager.enabledDebugDraw = true;
