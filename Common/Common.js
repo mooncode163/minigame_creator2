@@ -322,26 +322,26 @@ var Common = cc.Class({
         },
 
         CanvasToScreenWidth(canvasSize, w) {
-            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
-            var ret = w * screenSize.width / canvasSize.x;
+            let screenSize = cc.view.getVisibleSizeInPixel();//屏幕分辨率
+            var ret = w * screenSize.width / canvasSize.width;
             return ret;
         },
 
 
         CanvasToScreenHeight(canvasSize, h) {
-            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
-            var ret = h * screenSize.height / canvasSize.y;
+            let screenSize = cc.view.getVisibleSizeInPixel();//屏幕分辨率
+            var ret = h * screenSize.height / canvasSize.height;
             return ret;
         },
         ScreenToCanvasWidth(canvasSize, w) {
-            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
-            var ret = w * canvasSize.x / screenSize.width;
+            let screenSize = cc.view.getVisibleSizeInPixel();//屏幕分辨率
+            var ret = w * canvasSize.width / screenSize.width;
             return ret;
         },
 
         ScreenToCanvasHeigt(canvasSize, h) {
-            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
-            var ret = h * canvasSize.y / screenSize.height;
+            let screenSize = cc.view.getVisibleSizeInPixel();//屏幕分辨率
+            var ret = h * canvasSize.height / screenSize.height;
             return ret;
         },
         //判断微信getStorage key是否存在

@@ -52,8 +52,10 @@ var AdBannerWeiXin = cc.Class({
         //微信缩放后得到banner的真实高度，从新设置banner的top 属性
         this.bannerAd.onResize((res) => {
             this.bannerAd.style.top = winSize.windowHeight - this.bannerAd.style.realHeight;
-            this.width = this.bannerAd.style.realWidth;
-            this.height = this.bannerAd.style.realHeight;
+
+            // 屏幕单位
+            this.width = this.bannerAd.style.realWidth*winSize.pixelRatio;
+            this.height = this.bannerAd.style.realHeight*winSize.pixelRatio;
             
             if(this.objAd.success!=null)
             {
