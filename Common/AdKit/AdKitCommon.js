@@ -1,3 +1,4 @@
+var AppSceneBase = require("AppSceneBase");
 
 var AdType = cc.Enum({
     //区分大小写
@@ -25,10 +26,20 @@ var AdKitCommon = cc.Class({
     properties: {
         //get 和 set 函数不能放在statics里
 
-
+        widthAdBanner:0,
+        heightAdBanner:0,//screen
+        heightCanvasAdBanner:0,//canvas
     },
 
     //banner
+    	/*
+	{   
+	success: function (p,w,h) {
+	},
+	fail: function () {
+	}, 
+	}
+	*/
     InitAdBanner: function () {
         if (cc.Common.main().noad) {
             return;
@@ -49,16 +60,28 @@ var AdKitCommon = cc.Class({
         //     }
         // }
 
-        // if (isShowAdBanner) {
-        //     AdBanner.SetScreenSize(Screen.width, Screen.height);
-        //     AdBanner.SetScreenOffset(0, Device.heightSystemHomeBar);
-        //     {
-        //         var type = AdConfigParser.SOURCE_TYPE_BANNER;
-        //         string source = AdConfig.main.GetAdSource(type);
-        //         AdBanner.InitAd(source);
-        //         AdBanner.ShowAd(true);
-        //     }
-        // }
+        if (isShowAdBanner) {
+            cc.AdBanner.main().SetScreenSize(Screen.width, Screen.height);
+            cc.AdBanner.main().SetScreenOffset(0, Device.heightSystemHomeBar);
+            {
+                // var type =cc.AdConfigParser.SOURCE_TYPE_BANNER;
+                // var source = cc.AdConfig.main().GetAdSource(type); 
+                cc.AdBanner.main().InitAd({
+                    source: cc.Source.WEIXIN,
+                    success: function (p, w, h) {
+                        this.widthAdBanner = w;
+                        this.heightAdBanner = h;
+                        this.heightCanvasAdBanner = cc.Common.ScreenToCanvasHeigt(cc.Common.appSceneMain.sizeCanvas,h);
+                        // if (obj.success != null) {
+                        //     obj.success(this, w, h);
+                        // }
+                        AppSceneBase.main.LayOut();
+                    }.bind(this),
+                });
+
+                cc.AdBanner.main().ShowAd(true);
+            }
+        }
 
 
     },
@@ -72,12 +95,14 @@ var AdKitCommon = cc.Class({
         // if (AppVersion.appCheckHasFinished) {
         //     isShowAdInsert = true;
         // }
-        // if (isShowAdInsert) {
-        //     AdInsert.SetObjectInfo(this.gameObject.name);
-        //     int type = AdConfigParser.SOURCE_TYPE_INSERT;
-        //     string source = AdConfig.main.GetAdSource(type);
-        //     AdInsert.InitAd(source);
-        // }
+        isShowAdInsert = true;
+        if (isShowAdInsert) {
+            // AdInsert.SetObjectInfo(this.gameObject.name);
+            // var type = cc.AdConfigParser.SOURCE_TYPE_INSERT;
+            // var source = cc.AdConfig.main().GetAdSource(type);
+            var source = cc.Source.WEIXIN;
+            cc.AdInsert.main().InitAd(source);
+        }
     },
 
 
@@ -87,50 +112,50 @@ var AdKitCommon = cc.Class({
             return;
         }
         // if (AppVersion.appCheckHasFinished) {
-        //     AdVideo.SetType(AdVideo.ADVIDEO_TYPE_REWARD);
-        //     int type = AdConfigParser.SOURCE_TYPE_VIDEO;
-        //     string source = AdConfig.main.GetAdSource(type);
-        //     Debug.Log("InitAdVideo AdVideo.InitAd =" + source);
-        //     AdVideo.InitAd(source);
+            cc.AdVideo.main().SetType(cc.AdVideo.ADVIDEO_TYPE_REWARD);
+            // var type = cc.AdConfigParser.SOURCE_TYPE_VIDEO;
+            // var source = cc.AdConfig.main().GetAdSource(type);
+            var source = cc.Source.WEIXIN;
+            Debug.Log("InitAdVideo AdVideo.InitAd =" + source);
+            cc.AdVideo.main().InitAd(source);
         // }
     },
 
 
 
     ShowAdBanner(isShow) {
-        // AdBanner.ShowAd(isShow);
+        cc.AdBanner.main().ShowAd(isShow);
     },
     ShowAdVideo() {
         //show 之前重新设置广告
-        // InitAdVideo();
-        // AdVideo.ShowAd();
+        this.InitAdVideo();
+        cc.AdVideo.main().ShowAd();
     },
 
     ShowAdInsert(rate) {
-        /*
-                if (!AppVersion.appCheckHasFinished) {
-                    return;
-                }
-        
-                if (Common.noad) {
-                    return;
-                }
-        
-                if (Common.isAndroid) {
-                    if (Common.GetDayIndexOfUse() <= Config.main.NO_AD_DAY) {
-                        return;
-                    }
-                }
-        
-        
-                int randvalue = Random.Range(0, 100);
-                if (randvalue > rate) {
-                    return;
-                }
-                //show 之前重新设置广告
-                //InitAdInsert();
-                AdInsert.ShowAd();
-                */
+
+        // if (!AppVersion.appCheckHasFinished) {
+        //     return;
+        // }
+
+        if (cc.Common.main().noad) {
+            return;
+        }
+        // if (Common.isAndroid) {
+        //     if (Common.GetDayIndexOfUse() <= Config.main.NO_AD_DAY) {
+        //         return;
+        //     }
+        // }
+
+
+        var randvalue = cc.Common.RandomRange(0, 100); 
+        if (randvalue > rate) {
+            return;
+        }
+        //show 之前重新设置广告
+        //InitAdInsert();
+        cc.AdInsert.main().ShowAd();
+
     },
 
 
@@ -156,7 +181,7 @@ var AdKitCommon = cc.Class({
     AdBannerDidReceiveAdFail(adsource) {
 
         /*
-                int type = AdConfigParser.SOURCE_TYPE_BANNER;
+                int type = cc.AdConfigParser.SOURCE_TYPE_BANNER;
                 AdInfo info = AdConfig.main.GetNextPriority(type);
                 if (info != null) {
                     AdBanner.InitAd(info.source);
@@ -171,7 +196,7 @@ var AdKitCommon = cc.Class({
     },
 
     AdBannerDidClick(adsource) {
-      
+
     },
     AdInsertWillShow(str) {
         //Debug.Log(str);

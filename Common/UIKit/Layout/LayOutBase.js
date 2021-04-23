@@ -71,6 +71,8 @@ var LayOutBase = cc.Class({
         // 选择横屏配置参数
         enableLandscape:false,
 
+        enableOffsetAdBanner:false,
+
         isOnlyForPortrait:false,
         isOnlyForLandscape:false,
         

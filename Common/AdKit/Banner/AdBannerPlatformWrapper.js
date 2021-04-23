@@ -18,9 +18,7 @@ var AdBannerPlatformWrapper = cc.Class({
 
     ShowAd(isShow) {
        
-    },
-
-
+    }, 
     SetScreenSize(w, h) {
      
     },

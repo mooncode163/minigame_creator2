@@ -165,7 +165,9 @@ var AdConfig = cc.Class({
 
         }
 
-
+        if (cc.Common.main().isWeiXin) {
+            fileName = "config_weixin";
+        }
         if (cc.Common.main().isAndroid) {
             fileName = "config_android";
         }
@@ -181,66 +183,9 @@ var AdConfig = cc.Class({
         }
         //fileName += ".json";
         var filepath = strDir + "/" + fileName;
+
         cc.Debug.Log("AdConfig:filepath=" + filepath);
-        this.Load(filepath, AdConfig.MAIN);
-        /*
-                string json = FileUtil.ReadStringFromResources(strDir + "/" + fileName);//ReadStringAsset
-                rootJson = JsonMapper.ToObject(json);
-        
-                //appid
-        
-                JsonData jsonAppId = rootJson["APPID"];
-                foreach (string key in jsonAppId.Keys)
-                {
-                    string value = (string)jsonAppId[key];
-                    Debug.Log("APPID:key=" + key + " value=" + value);
-                    ItemInfo iteminfo = new ItemInfo();
-                    iteminfo.source = key;
-                    iteminfo.appid = value;
-                    listAppStore.Add(iteminfo);
-        
-                }
-        
-        
-        
-        
-        
-        
-                jsonShare = rootJson["SHARE"];
-                jsonPay = rootJson["PAY"];
-        
-                if (listSharePlatform == null)
-                {
-                    listSharePlatform = new List<SharePlatformInfo>();
-                }
-        
-                JsonData jsonPlatform = jsonShare["platform"];
-                foreach (JsonData data in jsonPlatform)
-                {
-                    SharePlatformInfo info = new SharePlatformInfo();
-                    info.source = (string)data["source"];
-                    info.appId = (string)data["id"];
-                    info.appKey = (string)data["key"];
-                    listSharePlatform.Add(info);
-                    if (info.source == Source.WEIXIN)
-                    {
-                        //同时添加朋友圈
-                        AddShareBrother(Source.WEIXINFRIEND, info.appId, info.appKey);
-                    }
-        
-                    if (info.source == Source.QQ)
-                    {
-                        //同时添加qq空间
-                        AddShareBrother(Source.QQZONE, info.appId, info.appKey);
-                    }
-        
-                }
-        
-                //统一添加email和短信
-                AddShareBrother(Source.EMAIL, "0", "0");
-                AddShareBrother(Source.SMS, "0", "0");
-        
-                */
+        this.Load(filepath, AdConfig.MAIN); 
     }
 
 });
@@ -262,4 +207,4 @@ AdConfig.main = function () {
     return AdConfig._main;
 }
 
-
+cc.AdConfig = module.export = AdConfig;

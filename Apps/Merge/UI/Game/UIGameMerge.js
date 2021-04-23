@@ -100,7 +100,7 @@ var UIGameMerge = cc.Class({
         //show game win
         if (isFail)
         { 
-            // this.ShowAdInsert(UIGameBase.GAME_AD_INSERT_SHOW_STEP);
+            this.ShowAdInsert(UIGameBase.GAME_AD_INSERT_SHOW_STEP);
             
             key = "UIGameFail";
             strPrefab = cc.ConfigPrefab.main().GetPrefab(key);

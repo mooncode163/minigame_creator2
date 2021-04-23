@@ -49,6 +49,15 @@ var GameViewController = cc.Class({
         if (this.ui == null) {
             var node = cc.instantiate(this.uiPrefab);
             this.ui = node.getComponent(UIGameBase);
+ 
+            // cc.AdKitCommon.main.InitAdBanner({ 
+            //     success: function (p, w, h) {
+                    
+            //     }.bind(this),
+            // });
+            cc.AdKitCommon.main.InitAdBanner();
+            cc.AdKitCommon.main.ShowAdBanner(true);
+            
         }
     },
 

@@ -71,7 +71,7 @@ var Common = cc.Class({
 
             //cc.Debug.Log("canvasMain size=" + size);
             //cc.Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height);
-           // cc.Debug.Log("sizeCanvas size=" + sizeCanvas);
+            // cc.Debug.Log("sizeCanvas size=" + sizeCanvas);
             return sizeCanvas;
         },
 
@@ -321,6 +321,29 @@ var Common = cc.Class({
             }
         },
 
+        CanvasToScreenWidth(canvasSize, w) {
+            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
+            var ret = w * screenSize.width / canvasSize.x;
+            return ret;
+        },
+
+
+        CanvasToScreenHeight(canvasSize, h) {
+            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
+            var ret = h * screenSize.height / canvasSize.y;
+            return ret;
+        },
+        ScreenToCanvasWidth(canvasSize, w) {
+            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
+            var ret = w * canvasSize.x / screenSize.width;
+            return ret;
+        },
+
+        ScreenToCanvasHeigt(canvasSize, h) {
+            let screenSize = cc.view.getVisibleSize();//屏幕分辨率
+            var ret = h * canvasSize.y / screenSize.height;
+            return ret;
+        },
         //判断微信getStorage key是否存在
         isKeyExistWeiXin: function (value) {
             var type = typeof value;
@@ -337,7 +360,7 @@ var Common = cc.Class({
 
         GetButtonText: function (btn) {
             return "btn";
-          //  return btn.node.getChildByName("Label").getComponent(cc.Label);
+            //  return btn.node.getChildByName("Label").getComponent(cc.Label);
         },
 
         //字符串显示大小

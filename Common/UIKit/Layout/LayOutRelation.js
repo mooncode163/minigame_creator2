@@ -1,9 +1,9 @@
- 
+
 var LayOutRelationType = cc.Enum({
     //区分大小写 
-    NONE:0,// 
-    PARENT:1,//相对父窗口 
-    TARGET:2,//相对目标 
+    NONE: 0,// 
+    PARENT: 1,//相对父窗口 
+    TARGET: 2,//相对目标 
 });
 
 //相对布局 位于target的左边 右边 下边 上边
@@ -17,7 +17,7 @@ var LayOutRelation = cc.Class({
     },
     statics: {
         //enum
-        LayOutRelationType: LayOutRelationType, 
+        LayOutRelationType: LayOutRelationType,
 
 
     },
@@ -69,7 +69,7 @@ var LayOutRelation = cc.Class({
         var pt = this.node.getPosition();
         x = pt.x;
         y = pt.y;
-    
+
         // var rctran = this.node.getComponent(cc.RectTransform);
         var rctran = this.node.getBoundingBox();
         // if (rctran == null) {
@@ -88,27 +88,27 @@ var LayOutRelation = cc.Class({
         //       w_parent = rctranParent.width;
         //       h_parent = rctranParent.height;
         // }
-  
-        cc.Debug.Log("this.type="+this.type+ " w_parent="+w_parent+" h_parent="+h_parent+" w="+w);
+
+        cc.Debug.Log("this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w);
         switch (this.type) {
             case LayOutRelationType.PARENT:
                 {
-          
+
                     if (this.align == cc.Align.LEFT) {
-                        x =  - w_parent / 2 + w / 2 + this.offset.x;
+                        x = - w_parent / 2 + w / 2 + this.offset.x;
                     }
                     if (this.align == cc.Align.RIGHT) {
-                        x =   w_parent / 2 - w / 2 - this.offset.x;
+                        x = w_parent / 2 - w / 2 - this.offset.x;
                     }
                     if (this.align == cc.Align.UP) {
-                        cc.Debug.Log("Align.UP this.type="+this.type+ " w_parent="+w_parent+" h_parent="+h_parent+" h="+h);
-                        y =  h_parent / 2 - h / 2 - this.offset.y;
+                        cc.Debug.Log("Align.UP this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " h=" + h);
+                        y = h_parent / 2 - h / 2 - this.offset.y;
                     }
                     if (this.align == cc.Align.DOWN) {
-                        y =  - h_parent / 2 + h / 2 + this.offset.y;
+                        y = - h_parent / 2 + h / 2 + this.offset.y;
                     }
                     // x =   w_parent / 2;
-                   
+
                 }
                 break;
             case LayOutRelationType.TARGET:
@@ -134,18 +134,21 @@ var LayOutRelation = cc.Class({
                     if (this.align == cc.Align.DOWN) {
                         y = ptTarget.y - rctranTarget.height / 2 - h / 2 - this.offset.y;
                     }
-            
+
                     //相同位置
                     if (this.align == cc.Align.SAME_POSTION) {
                         x = ptTarget.x;
                         y = ptTarget.y;
                     }
-            
+
                 }
                 break;
 
         }
-      
+        if (this.enableOffsetAdBanner) {
+
+            y += cc.AdKitCommon.main.heightCanvasAdBanner;
+        }
 
         this.node.setPosition(x, y);
 
@@ -154,4 +157,4 @@ var LayOutRelation = cc.Class({
 
 });
 
-cc.LayOutRelation = module.export = LayOutRelation; 
+cc.LayOutRelation = module.export = LayOutRelation;

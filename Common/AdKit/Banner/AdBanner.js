@@ -11,14 +11,34 @@ var AdBanner = cc.Class({
 	Init: function () {
 		var p = new cc.AdBannerPlatformWrapper();
 		this.platform = p.GetPlatform();
+	},
+
+	/*
+	{  
+	source:"source"
+	success: function (p,w,h) {
+	},
+	fail: function () {
 	}, 
-	InitAd(source) {
+	}
+	*/
+	InitAd(obj) {
 
 		if (this.platform == null) {
 			return;
 		}
 		// Moonma.AdKit.AdConfig.AdConfig.main.InitPriority(source, AdConfigParser.SOURCE_TYPE_BANNER);
-		this.platform.InitAd(source);
+
+		this.platform.InitAd({
+			source: obj.source,
+			success: function (p, w, h) {
+				if (obj.success != null) {
+					obj.success(this, w, h);
+				}
+			}.bind(this),
+		});
+
+
 	},
 
 	ShowAd(isShow) {
@@ -45,6 +65,13 @@ var AdBanner = cc.Class({
 
 	},
 
+	GetHeight() {
+		if (this.platform == null) {
+			return 0;
+		}
+		return this.platform.GetHeight();
+	},
+
 });
 
 AdBanner._main = null;
@@ -56,4 +83,4 @@ AdBanner.main = function () {
 	}
 	return AdBanner._main;
 }
-cc.AdBanner = module.export = AdBanner; 
+cc.AdBanner = module.export = AdBanner;

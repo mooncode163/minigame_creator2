@@ -233,7 +233,15 @@ var AppSceneBase = cc.Class({
     },
 
     LayOut: function ( ) { 
+        if (this.rootViewController != null)
+        {
+            var ui = this.rootViewController.view;
+            if (ui != null)
+            {
+                ui.LayOut();
+            }
 
+        }
     },
 
     
