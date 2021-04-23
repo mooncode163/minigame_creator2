@@ -18,6 +18,15 @@ var AdInsertWeiXin = cc.Class({
             this.interstitialAd = wx.createInterstitialAd({
                 adUnitId: cc.AdInfo.ID_Insert
             })
+ 
+            this.interstitialAd.onError(res => {
+        
+            }) 
+            this.interstitialAd.onClose(res => {
+        
+            }) 
+           
+            
         }
 
     },

@@ -126,7 +126,7 @@ cc.Class({
     },
 
     LoadSideBar: function () { 
-        key = "UIHomeSideBar"; 
+        var key = "UIHomeSideBar"; 
         cc.PrefabCache.main.LoadByKey(key, function (err, prefab) {
             if (err) {
                 cc.Debug.Log("LoadPrefab err:" + err.message || err);

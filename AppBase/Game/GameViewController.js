@@ -86,7 +86,7 @@ var GameViewController = cc.Class({
                 return;
             }
             this.uiPrefab = prefab;
-            this.LoadUI();
+            // this.LoadUI();
             cc.Debug.Log("Game LoadPrefab Finish");
             this.LoadPrefabEnd();
 

@@ -41,7 +41,7 @@ var AdKitCommon = cc.Class({
 	}
 	*/
     InitAdBanner: function () {
-        if (cc.Common.main().noad) {
+        if (cc.Common.noad) {
             return;
         }
         var isShowAdBanner = true;
@@ -88,7 +88,7 @@ var AdKitCommon = cc.Class({
 
     //insert
     InitAdInsert: function () {
-        if (cc.Common.main().noad) {
+        if (cc.Common.noad) {
             return;
         }
         var isShowAdInsert = false;
@@ -108,7 +108,7 @@ var AdKitCommon = cc.Class({
 
     //Video
     InitAdVideo: function () {
-        if (cc.Common.main().noad) {
+        if (cc.Common.noad) {
             return;
         }
         // if (AppVersion.appCheckHasFinished) {
@@ -138,7 +138,7 @@ var AdKitCommon = cc.Class({
         //     return;
         // }
 
-        if (cc.Common.main().noad) {
+        if (cc.Common.noad) {
             return;
         }
         // if (Common.isAndroid) {
