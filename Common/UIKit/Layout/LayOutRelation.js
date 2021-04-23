@@ -146,7 +146,7 @@ var LayOutRelation = cc.Class({
 
         }
         if (this.enableOffsetAdBanner) {
-
+            // cc.AdKitCommon.main.heightCanvasAdBanner = 256;
             y += cc.AdKitCommon.main.heightCanvasAdBanner;
         }
 

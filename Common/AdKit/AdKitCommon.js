@@ -61,8 +61,8 @@ var AdKitCommon = cc.Class({
         // }
 
         if (isShowAdBanner) {
-            cc.AdBanner.main().SetScreenSize(Screen.width, Screen.height);
-            cc.AdBanner.main().SetScreenOffset(0, Device.heightSystemHomeBar);
+            // cc.AdBanner.main().SetScreenSize(Screen.width, Screen.height);
+            // cc.AdBanner.main().SetScreenOffset(0, cc.Device.main.heightSystemHomeBar);
             {
                 // var type =cc.AdConfigParser.SOURCE_TYPE_BANNER;
                 // var source = cc.AdConfig.main().GetAdSource(type); 

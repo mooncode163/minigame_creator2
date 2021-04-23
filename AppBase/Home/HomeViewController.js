@@ -1,6 +1,6 @@
 var UIViewController = require("UIViewController");
 var UIHomeBase = require("UIHomeBase");
-var AdConfigParser = require("AdConfigParser");
+// var AdConfigParser = require("AdConfigParser");
 var GameViewController = require("GameViewController");
 
 var HomeViewController = cc.Class({
