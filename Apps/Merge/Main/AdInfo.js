@@ -4,9 +4,16 @@ var AdInfo = cc.Class({
     //cc.js.getClassName
     extends: cc.Object,
     statics: { 
-        ID_Banner: "adunit-c529d357d13f4d98", 
-        ID_Insert: "adunit-96b9f47595d18e33", 
-        ID_Video: "adunit-bf085c9e03925282", 
+
+        // 西瓜
+        // ID_Banner: "adunit-c529d357d13f4d98", 
+        // ID_Insert: "adunit-96b9f47595d18e33", 
+        // ID_Video: "adunit-bf085c9e03925282", 
+
+        // ball
+        ID_Banner: "adunit-663159c8925f939f", 
+        ID_Insert: "adunit-caab860b86ff5826", 
+        ID_Video: "adunit-0c824880e72a5602", 
     },
 
     properties:

@@ -86,7 +86,7 @@ var UIMergeItem = cc.Class({
 
     UpdateImage: function (pic) {
         this.spriteItem = this.nodeItem.getComponent(cc.UISprite);
-        this.spriteItem.UpdateImage(pic);
+        this.spriteItem.UpdateImageCloud(pic);
     },
 
     EnableGravity: function (isEnable) {

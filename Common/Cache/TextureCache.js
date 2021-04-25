@@ -88,6 +88,65 @@ var TextureCache = cc.Class({
         }
     },
 
+    /*
+{
+url:"", 
+isCloud:false,
+success: function (p,data) {
+}.bind(this),
+fail: function (p) {
+}.bind(this), 
+}
+*/
+    LoadObj: function (obj) {
+        var ret = null;
+        this.Init();
+        var key = obj.url;
+        //cc.Debug.Log("TextureCache  Load  key="+key);
+        if (this.dicItem.Contains(key) == true) {
+            ret = this.dicItem.Get(key);
+            cc.Debug.Log("TextureCache  load  from cache");
+            // if (completeCallback) {
+            //     completeCallback(null, ret);
+            // }
+        } else {
+            if (obj.isCloud) {
+                cc.ResManager.main().LoadUrl({
+                    url: key,
+                    success: function (p, data) {
+                        if (obj.success) {
+                            obj.success(this, data);
+                        }
+                    }.bind(this),
+                    fail: function (p, error) {
+                        cc.Debug.Log("TextureCache LoadObj LoadUrl fail");
+                        cc.Debug.Log(error.message || error);
+                        if (obj.fail) {
+                            obj.fail(this);
+                        }
+                        return ret;
+                    }.bind(this)
+                });
+            } else {
+                cc.ResManager.main().Load({
+                    filepath: key,
+                    success: function (p, data) {
+                        if (obj.success) {
+                            obj.success(this, data);
+                        }
+                    }.bind(this),
+                    fail: function (p, error) {
+                        cc.Debug.Log("TextureCache LoadObj LoadUrl fail");
+                        cc.Debug.Log(error.message || error);
+                        if (obj.fail) {
+                            obj.fail(this);
+                        }
+                        return ret;
+                    }.bind(this)
+                });
+            }
+        }
+    },
 
     LoadCache: function (filepath, completeCallback) {
         this.Init();
@@ -127,31 +186,70 @@ var TextureCache = cc.Class({
 
     },
 
+    LoadNotCacheFail: function (filepath, completeCallback) {
+        cc.ResManager.main().LoadUrl({
+            filepath: filepath,
+            success: function (p, data) {
+                if (completeCallback) {
+                    completeCallback(null, data);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                cc.Debug.Log("TextureCache loadRes fail");
+                cc.Debug.Log(error.message || error);
+                if (completeCallback) {
+                    completeCallback(error, null);
+                }
+                return ret;
+            }.bind(this)
+        });
+    },
+
     LoadNotCache: function (filepath, completeCallback) {
         this.Init();
         var ret = null;
-        // var key = filepath;
-        var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
+        var key = filepath;
+        // var key = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
         {
-            cc.Debug.Log("TextureCache LoadNotCache key="+key);
+            cc.Debug.Log("TextureCache LoadNotCache key=" + key);
             //加载图片： https://www.jianshu.com/p/8bd1eb0240d7
-            cc.resources.load(key, cc.Texture2D, function (err, tex) {
-                //cc.url.raw('res/textures/content.png')
-                if (err) {
-                    cc.Debug.Log("TextureCache loadRes fail");
-                    cc.Debug.Log(err.message || err);
+
+
+            // cc.resources.load(key, cc.Texture2D, function (err, tex) {
+            //     //cc.url.raw('res/textures/content.png')
+            //     if (err) {
+            //         cc.Debug.Log("TextureCache loadRes fail");
+            //         cc.Debug.Log(err.message || err);
+            //         if (completeCallback) {
+            //             completeCallback(err, tex);
+            //         }
+            //         return ret;
+            //     }
+            //     if (tex != null) {
+            //         // this.dicItem.Add(key, tex);
+            //     }
+            //     if (completeCallback) {
+            //         completeCallback(err, tex);
+            //     }
+            // }.bind(this));
+
+            cc.ResManager.main().Load({
+                filepath: filepath,
+                success: function (p, data) {
                     if (completeCallback) {
-                        completeCallback(err, tex);
+                        completeCallback(null, data);
                     }
+                }.bind(this),
+                fail: function (p, error) {
+                    cc.Debug.Log("TextureCache loadRes fail");
+                    cc.Debug.Log(error.message || error);
+                    // if (completeCallback) {
+                    //     completeCallback(error, null);
+                    // }
+                    this.LoadNotCacheFail(filepath, completeCallback);
                     return ret;
-                }
-                if (tex != null) {
-                    // this.dicItem.Add(key, tex);
-                }
-                if (completeCallback) {
-                    completeCallback(err, tex);
-                }
-            }.bind(this));
+                }.bind(this)
+            });
         }
         return ret;
 

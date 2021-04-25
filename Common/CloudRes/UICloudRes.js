@@ -17,7 +17,8 @@ var UICloudRes = cc.Class({
         this.UpdateProgress(0);
 
         cc.CloudRes.main().StartDownload({
-            url: cc.Device.main.isLandscape ? cc.AppRes.URL_CLOUND_RES_HD : cc.AppRes.URL_CLOUND_RES,
+            // url: cc.Device.main.isLandscape ? cc.AppRes.URL_CLOUND_RES_HD : cc.AppRes.URL_CLOUND_RES,
+            url:cc.Config.main().cloudResUrl,
             success: function (res) {
 
             }.bind(this),

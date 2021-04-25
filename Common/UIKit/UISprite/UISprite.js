@@ -50,7 +50,8 @@ var UISprite = cc.Class({
         if (!cc.Common.isBlankString(pic)) {
             this.UpdateImageObj({
                 // pic: cc.CloudRes.main().uiRootPath + "/" + pic,
-                pic:pic,
+                isCloud: false,
+                pic: pic,
                 type: board ? cc.Sprite.Type.SLICED : cc.Sprite.Type.SIMPLE,//SLICED
                 left: board ? board.x : 0,
                 right: board ? board.y : 0,
@@ -63,11 +64,36 @@ var UISprite = cc.Class({
         }
     },
 
-    UpdateImage: function (pic,board=null) {
+    UpdateImage: function (pic, board = null) {
         if (!cc.Common.isBlankString(pic)) {
             this.UpdateImageObj({
                 // pic: cc.CloudRes.main().uiRootPath + "/" + pic,
-                pic:pic,
+                pic: pic,
+                isCloud: false,
+                type: board ? cc.Sprite.Type.SLICED : cc.Sprite.Type.SIMPLE,//SLICED
+                left: board ? board.x : 0,
+                right: board ? board.y : 0,
+                top: board ? board.z : 0,
+                bottom: board ? board.w : 0,
+                success: function () {
+                    this.LayOut();
+                }.bind(this),
+            });
+        }
+    },
+
+    UpdateImageCloud: function (pic, board = null) {
+        if (!cc.Common.isBlankString(pic)) {
+            var isCloud = false;
+            if(cc.Common.main().isWeiXin)
+            {
+                isCloud = true;
+            }
+            // isCloud = false;
+            this.UpdateImageObj({
+                // pic: cc.CloudRes.main().uiRootPath + "/" + pic,
+                pic: pic,
+                isCloud: isCloud,
                 type: board ? cc.Sprite.Type.SLICED : cc.Sprite.Type.SIMPLE,//SLICED
                 left: board ? board.x : 0,
                 right: board ? board.y : 0,
@@ -83,6 +109,7 @@ var UISprite = cc.Class({
     UpdateImageObj: function (obj) {
         cc.TextureUtil.UpdateSpriteImage({
             sprite: this.sprite,
+            isCloud: obj.isCloud,
             pic: obj.pic,
             type: obj.type,//SLICED
             left: obj.left,
@@ -105,14 +132,14 @@ var UISprite = cc.Class({
         });
     },
 
-    UpdateImage2: function (pic,type=cc.Sprite.Type.SIMPLE) {
+    UpdateImage2: function (pic, type = cc.Sprite.Type.SIMPLE) {
         this.UpdateImage({
             pic: pic,
             type: type,// 
             success: function () {
                 this.LayOut();
                 // cc.AppSceneBase.main().LayOut();
-                
+
             }.bind(this),
         });
     },

@@ -30,6 +30,7 @@ var TextureUtil = cc.Class({
          {
              sprite:cc.Sprite,
              pic: "",
+             isCloud:false,
              def: "",
              type:cc.Sprite.Type.SIMPLE,//SLICED
              left:0,
@@ -43,49 +44,58 @@ var TextureUtil = cc.Class({
          }p
      */
         UpdateSpriteImage: function (obj) {
-            var pic = cc.FileUtil.GetFileBeforeExtWithOutDot(obj.pic);
+            var pic = obj.pic;
             cc.Debug.Log("UpdateSpriteImage pic=" + pic);
-            cc.TextureCache.main.Load(pic, function (err, tex) {
-                if (err) {
-                    cc.Debug.Log("UpdateSpriteImage err=" + err);
-                    if (obj.fail != null) {
-                        obj.fail();
-                    }
-                    return;
-                }
-                cc.Debug.Log("UpdateSpriteImage success");
-                obj.sprite.spriteFrame = new cc.SpriteFrame(tex);
-                var spf = obj.sprite.spriteFrame;
-               
-                if (obj.type==cc.Sprite.Type.SLICED)
-                 {
-                    cc.Debug.Log("pic="+pic+" spf="+spf+" obj.top="+obj.top);
-                    spf.type = obj.type;
-                    // 纹理的四个边距
-                    spf.insetBottom = obj.bottom;
-                    spf.insetTop = obj.top;
-                    spf.insetLeft = obj.left;
-                    spf.insetRight = obj.right; 
-                }
 
-                // spf.type = cc.Sprite.Type.SLICED;
-                // spf.insetBottom = 64;
-                // spf.insetTop = 64;
-                // spf.insetLeft = 64;
-                // spf.insetRight = 64;
-                if(obj.sprite.node!=null)
+            cc.TextureCache.main.LoadObj(
                 {
-                    obj.sprite.node.setContentSize(tex.width, tex.height);
-                    var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
-                    if (lyscale) {
-                        lyscale.LayOut();
-                    }
-                }
-             
-                if (obj.success != null) {
-                    obj.success(tex);
-                }
-            }.bind(this));
+                    url: pic,
+                    isCloud: obj.isCloud,
+                    success: function (p, data) {
+                        var tex = data;
+                        cc.Debug.Log("UpdateSpriteImage success");
+                        obj.sprite.spriteFrame = new cc.SpriteFrame(tex);
+                        var spf = obj.sprite.spriteFrame;
+        
+                        if (obj.type == cc.Sprite.Type.SLICED) {
+                            cc.Debug.Log("pic=" + pic + " spf=" + spf + " obj.top=" + obj.top);
+                            spf.type = obj.type;
+                            // 纹理的四个边距
+                            spf.insetBottom = obj.bottom;
+                            spf.insetTop = obj.top;
+                            spf.insetLeft = obj.left;
+                            spf.insetRight = obj.right;
+                        }
+        
+                        // spf.type = cc.Sprite.Type.SLICED;
+                        // spf.insetBottom = 64;
+                        // spf.insetTop = 64;
+                        // spf.insetLeft = 64;
+                        // spf.insetRight = 64;
+                        if (obj.sprite.node != null) {
+                            obj.sprite.node.setContentSize(tex.width, tex.height);
+                            var lyscale = obj.sprite.node.getComponent(cc.LayOutScale);
+                            if (lyscale) {
+                                lyscale.LayOut();
+                            }
+                        }
+        
+                        if (obj.success != null) {
+                            obj.success(tex);
+                        }
+
+
+                        // if (obj.success) {
+                        //     obj.success(this, data);
+                        // }
+                    }.bind(this),
+                    fail: function (p) {
+                        if (obj.fail) {
+                            obj.fail();
+                        }
+                    }.bind(this),
+                });
+ 
         },
         /*
                {
@@ -128,4 +138,4 @@ var TextureUtil = cc.Class({
 
 });
 
-cc.TextureUtil = module.export = TextureUtil; 
+cc.TextureUtil = module.export = TextureUtil;

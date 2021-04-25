@@ -27,6 +27,13 @@ var Config = cc.Class({
                 return  this.configCommon.GetString("APP_TYPE",""); 
             },
         },
+
+        cloudResUrl:
+        {
+            get: function () { 
+                return  this.configCommon.GetCloudResUrl(); 
+            },
+        },
         version:
         {
             get: function () { 

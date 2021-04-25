@@ -134,8 +134,8 @@ var AppSceneBase = cc.Class({
                 // this.canvasMain.designResolution = new cc.size(Math.min(h, h), Math.max(w, h));
                 // this.canvasMain.fitHeight = true;
                 // this.canvasMain.fitWidth = false;
-
-                this.canvasMain.designResolution = new cc.size(Math.max(w, h), Math.min(w, h));
+                var ratio = 0.8;
+                this.canvasMain.designResolution = new cc.size(Math.max(w, h)*ratio, Math.min(w, h)*ratio);
                 this.canvasMain.fitWidth = true;
                 this.canvasMain.fitHeight = false;
             }

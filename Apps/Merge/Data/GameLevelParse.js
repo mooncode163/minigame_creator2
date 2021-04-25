@@ -91,7 +91,7 @@ var GameLevelParse = cc.Class({
     },
     GetImagePathPlace: function (id, idx) {
         var infoPlace = cc.LevelManager.main().GetPlaceItemInfo(idx);
-        return cc.Common.GAME_RES_DIR + "/Image/" + infoPlace.id + "/" + id + ".png";
+        return cc.CloudRes.main().rootPath + "/Image/" + infoPlace.id + "/" + id + ".png";
     }, 
 
     ParseGameItemJson: function (json) {

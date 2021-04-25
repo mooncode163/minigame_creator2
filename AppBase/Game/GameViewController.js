@@ -59,6 +59,10 @@ var GameViewController = cc.Class({
 
         cc.AdKitCommon.main.InitAdBanner();
         cc.AdKitCommon.main.ShowAdBanner(true);
+
+        // insert
+        cc.AdKitCommon.main.InitAdInsert();
+        cc.AdKitCommon.main.ShowAdInsert(100);
     },
 
     LoadPrefabEnd: function () {

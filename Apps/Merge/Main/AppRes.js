@@ -44,10 +44,7 @@ var AppRes = cc.Class({
         IMAGE_CELL_BG_YELLOW: "AppCommon/UI/Setting/SettingCellBgYellow",
 
         //game
-        IMAGE_Game_Bomb: "AppCommon/UI/Game/Bomb",
-
-        URL_CLOUND_RES: "https://6d6f-moonma-dbb297-1258816908.tcb.qcloud.la/ShapeColor/CloudRes.zip?sign=e78a71df50918d8ee0e181886b20c12f&t=1555465442",
-        URL_CLOUND_RES_HD: "https://7368-shapecolor-4f2a07-1258767259.tcb.qcloud.la/CloudRes.zip?sign=eab5b69e0643867ebccdb86b85b47759&t=1555923509",
+        IMAGE_Game_Bomb: "AppCommon/UI/Game/Bomb", 
     },
 
     properties:

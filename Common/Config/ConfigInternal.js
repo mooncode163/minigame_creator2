@@ -49,6 +49,16 @@ var ConfigInternal = cc.Class({
     GetString: function (key, def) { 
         return cc.JsonUtil.GetItem(this.rootJson, key, def); 
     },
+
+    GetCloudResUrl: function () { 
+        var key = "url";
+        if(cc.Device.main.isLandscape)
+        {
+            key = "url_hd";
+        }
+        return cc.JsonUtil.GetItem(this.rootJson.CloudRes, key, ""); 
+    }, 
+
     GetAppIdOfStore(store) {
         cc.Debug.Log("GetAppIdOfStore store=" + store);
         var appid = this.rootJson.APPID;

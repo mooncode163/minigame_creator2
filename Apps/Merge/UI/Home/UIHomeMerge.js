@@ -43,7 +43,7 @@ var UIHomeMerge =cc.Class({
         var pic = cc.GameLevelParse.main().GetImagePath(info.id); 
         this.imageLogo = this.nodeImageLogo.getComponent(cc.UIImage);
         cc.Debug.Log("UIHomeMerge pic="+pic);
-        this.imageLogo.UpdateImage(pic);
+        this.imageLogo.UpdateImageCloud(pic);
 
         var name = cc.Language.main().GetString("APP_NAME");
         if (cc.Device.main.isLandscape) {

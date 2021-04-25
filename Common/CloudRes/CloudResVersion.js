@@ -59,8 +59,8 @@ var CloudResVersion = cc.Class({
         var filepath = dirRoot + "/version.json";
 
         if (cc.Common.main().isWeiXin) {
-            // 加载json文件
-            cc.assetManager.loadRemote({ url: filepath, type: "json" }, function (err, rootJson) {
+            // 加载json文件 { ext: ".json" },
+            cc.assetManager.loadRemote(filepath,  function (err, rootJson) {
                 this.LoadFinish(err, rootJson);
             }.bind(this));
         } else {
