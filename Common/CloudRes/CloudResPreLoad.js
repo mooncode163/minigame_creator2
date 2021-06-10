@@ -5,31 +5,12 @@ var CloudResPreLoad = cc.Class({
     },
 
     properties: { 
-        countLoad:0,
-        countMax:0,
-    },
-
-    OnFinish: function (obj)
-    {
-        this.countLoad++;
-        cc.Debug.Log("CloudResPreLoad this.countLoad=" + this.countLoad + ",this.countMax=" + this.countMax);
-        if(this.countLoad>=this.countMax)
-        {   
-            this.countLoad =0;
-            if(obj.success!=null)
-            {
-                obj.success(this);
-            }
-        }
-    },
-
-    /*
-{ 
-success: function (p) {
-},
-fail: function () {
-}, 
-}*/
+        countLoad:0, 
+        listItem: {
+            default: [],
+            type: cc.ConfigBase
+        }, 
+    }, 
 
     Load: function (obj) {
         // this.objCallBack = obj;
@@ -37,99 +18,7 @@ fail: function () {
         this.countLoad = 0;
         this.countMax = 6; 
 
-        //config
-        // this.countMax++;
-        cc.Config.main().Load(  
-            {  
-            success: function (p) { 
-                cc.Debug.Log("CloudResPreLoad Config success");
-                this.OnFinish(obj); 
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad Config fail");
-            }, 
-            });
-
-
-            // return;
-
-        // color
-        // this.countMax++;
-        cc.ColorConfig.main().Load(  
-            {  
-            success: function (p) {  
-                cc.Debug.Log("CloudResPreLoad ColorConfig success");
-                this.OnFinish(obj);
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad ColorConfig fail");
-            }, 
-            });
-        // {
-        //     var info = new cc.LoadItemInfo();
-        //     info.id = "color";
-        //     info.isLoad = false;
-        //     this.listProLoad.push(info);
-        //     cc.ColorConfig.main().GetColor({
-        //         key: "CloudResPreLoad",
-        //         def: cc.Color.BLACK,
-        //         success: function (color) {
-        //             for (let infotmp of this.listProLoad) {
-        //                 if (infotmp.id == "color") {
-        //                     infotmp.isLoad = true;
-        //                 }
-        //             }
-        //             cc.Debug.Log("CloudResPreLoadDidFinish color");
-        //             this.CloudResPreLoadDidFinish(info);
-        //         }.bind(this),
-        //     });
-
-        // }
-
-        //本地 imageres.json
-        //if (!cc.Common.main().isWeiXin) 
-        // {
-        //     var info = new cc.LoadItemInfo();
-        //     info.id = "image";
-        //     info.isLoad = false;
-        //     this.listProLoad.push(info);
-        //     cc.ImageRes.main().GetImage({
-        //         key: "CloudResPreLoad",
-        //         success: function (image) {
-        //             for (let infotmp of this.listProLoad) {
-        //                 if (infotmp.id == "image") {
-        //                     infotmp.isLoad = true;
-        //                 }
-        //             }
-        //             cc.Debug.Log("CloudResPreLoadDidFinish image");
-        //             this.CloudResPreLoadDidFinish(info);
-        //         }.bind(this),
-        //     });
-        // }
-
-        //language
-        // this.countMax++;
-        cc.Language.main().Load(  
-            {  
-            success: function (p) {  
-                cc.Debug.Log("CloudResPreLoad Language success");
-                this.OnFinish(obj);
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad Language fail");
-            }, 
-            });
-        // {
-        //     var info = new cc.LoadItemInfo();
-        //     info.id = cc.LoadItemInfo.LANGUAGE;
-        //     info.isLoad = false;
-        //     this.listProLoad.push(info);
-
-        //     var lan = cc.Language.main();
-        //     lan.SetLoadFinishCallBack(this.CloudResPreLoadDidFinish.bind(this), info);
-        // }
-
-
+       
         //image
         // this.countMax++;
         cc.ImageRes.main().Load(  
@@ -143,35 +32,60 @@ fail: function () {
             }, 
             });
 
-        // prefab
-        // this.countMax++;
-        cc.ConfigPrefab.main().Load(  
-            {  
-            success: function (p) {  
-                cc.Debug.Log("CloudResPreLoad ConfigPrefab success");
-                this.OnFinish(obj);
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad ConfigPrefab fail");
-            }, 
-            });
-            
-
-         // Audio
-        // this.countMax++;
-        cc.ConfigAudio.main().Load(  
-            {  
-            success: function (p) {  
-                cc.Debug.Log("CloudResPreLoad ConfigAudio success");
-                this.OnFinish(obj);
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad ConfigAudio fail");
-            }, 
-            });
+ 
 
     },
     
+    Init: function() {
+ 
+        this.listItem.push(cc.ConfigCloudRes.main());
+        this.listItem.push(cc.LanguageCloudRes.main());
+        this.listItem.push(cc.ImageResCloudRes.main());
+        
+    },
+ 
+    /*
+{ 
+success: function (p) {
+},
+fail: function () {
+}, 
+}*/
+    Load: function(obj) {
+        this.countLoad = 0;
+        this.listItem.forEach((item) => {
+            item.Load(
+                {
+                    // isCloud:false,
+
+                    success: function (p) {  
+                        Debug.Log("CloudResPreLoad success this.countLoad="+this.countLoad);
+                        this.OnFinish(obj,false);
+                    }.bind(this),
+                    fail: function (p) {
+                        Debug.Log("CloudResPreLoad fail this.countLoad="+this.countLoad);
+                        this.OnFinish(obj,true);
+                    },  
+                });
+        });  
+
+    } ,
+
+    OnFinish: function(obj,isFail) {
+        this.countLoad++;
+        if (this.countLoad >= this.listItem.length) { 
+            if(isFail)
+            {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }else{
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }
+        }
+    },
 
 });
 
@@ -180,6 +94,7 @@ CloudResPreLoad._main = null;
 CloudResPreLoad.main = function () { 
     if (!CloudResPreLoad._main) {
         CloudResPreLoad._main = new CloudResPreLoad();
+        CloudResPreLoad._main.Init();
     } else {
     }
 
