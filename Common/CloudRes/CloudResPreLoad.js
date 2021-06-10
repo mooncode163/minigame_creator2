@@ -11,37 +11,11 @@ var CloudResPreLoad = cc.Class({
             type: cc.ConfigBase
         }, 
     }, 
-
-    Load: function (obj) {
-        // this.objCallBack = obj;
-        var w, h;
-        this.countLoad = 0;
-        this.countMax = 6; 
-
-       
-        //image
-        // this.countMax++;
-        cc.ImageRes.main().Load(  
-            {  
-            success: function (p) {  
-                cc.Debug.Log("CloudResPreLoad ImageRes success");
-                this.OnFinish(obj);
-            }.bind(this),
-            fail: function () {
-                cc.Debug.Log("CloudResPreLoad ImageRes fail");
-            }, 
-            });
-
  
-
-    },
-    
     Init: function() {
- 
         this.listItem.push(cc.ConfigCloudRes.main());
         this.listItem.push(cc.LanguageCloudRes.main());
         this.listItem.push(cc.ImageResCloudRes.main());
-        
     },
  
     /*
@@ -57,7 +31,6 @@ fail: function () {
             item.Load(
                 {
                     // isCloud:false,
-
                     success: function (p) {  
                         Debug.Log("CloudResPreLoad success this.countLoad="+this.countLoad);
                         this.OnFinish(obj,false);

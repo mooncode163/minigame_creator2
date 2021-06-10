@@ -7,100 +7,140 @@ var ImageResCloudRes = cc.Class({
 
     },
     properties: {
-        rootJson: null,
-        version:
+        // ImageResInternal
+        imageResCommon: null, 
+
+    },
+    Init:function() { 
+       var strDir = "/Common/UI"  
+       var fileName = "ImageRes.json";
         {
-            get: function () {
-                if (this.rootJson != null) {
-                    return this.rootJson.version;
+            this.imageResCommon = new cc.ImageResInternal();
+            this.imageResCommon.fileJson = strDir + "/" + fileName;
+            this.listItem.push(this.imageResCommon);
+        } 
+    }, 
+    
+    GetImageBoardString:function(path) {
+        var ret = "";
+        this.listItem.forEach((item) => {
+            var p = item;// as ImageResInternal;
+            if (Common.BlankString(ret)) {
+                if (p != null) {
+                    var key = p.FindKeyByPath(path);
+                    if (!Common.BlankString(key)) {
+                        ret = p.GetImageBoardString(key);
+                    }
                 }
-                return "0.0.0";
-            },
-        },
-
-
-    },
-
-    LoadFinish(err, rootJson) {
-        if (err) {
-            cc.Debug.Log("ImageResCloudRes:err=" + err);
-            // return;
-        }
-        if (err == null) {
-            if (rootJson.json == null) {
-                cc.Debug.Log("LoadFinish weixin ImageResCloudRes:ParseData");
-                this.ParseData(rootJson);
             } else {
-                //resource里的json文件
-                cc.Debug.Log("LoadFinish resource ImageResCloudRes:ParseData");
-                this.ParseData(rootJson.json);
+                return ret;
             }
-        }
-        if (this.callbackFinish != null) {
-            this.callbackFinish();
-        }
+
+        });
+
+ 
+        return ret;
     },
 
-
-    Load(cbFinish) {
-        this.callbackFinish = cbFinish;
-        if (this.rootJson != null) {
-            if (this.callbackFinish != null) {
-                this.callbackFinish();
+    IsHasBoard:function(key) {
+        var ret = false;
+        if (Common.BlankString(key)) {
+            return ret;
+        }
+        this.listItem.forEach((item) => {
+            var p = item;// as ImageResInternal;
+            if (ret == false) {
+                if (p != null) {
+                    ret = p.IsHasBoard(key);
+                }
+            } else {
+                return ret;
             }
-            return;
-        }
-        // var dirRoot = cc.Common.CLOUD_RES_DIR;
-        // if (cc.Common.main().isWeiXin) {
-        //     dirRoot = cc.FileSystemWeixin.main().GetRootDirPath() + "/" + cc.Common.CLOUD_RES_DIR_NAME;
-        // }
-        var dirRoot = cc.CloudRes.main().rootPath;
-        var filepath = dirRoot + "/version.json";
-
-        if (cc.Common.main().isWeiXin) {
-            // 加载json文件 { ext: ".json" },
-            cc.assetManager.loadRemote(filepath,  function (err, rootJson) {
-                this.LoadFinish(err, rootJson);
-            }.bind(this));
-        } else {
-            //cc.JsonAsset   cc.loader.load
-            //去除后缀
-            filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
-            cc.resources.load(filepath, function (err, rootJson) {
-                this.LoadFinish(err, rootJson);
-            }.bind(this));
-        }
+        });
+ 
 
 
-
-    },
-
-    ParseData: function (json) {
-        cc.Debug.Log("ImageResCloudRes:ParseData start");
-        this.rootJson = json;
-        if (this.rootJson == null) {
-            cc.Debug.Log("ImageResCloudRes:ParseData  is null");
-        }
-
-        var word = json.words;
-        if (word != null) {
-            cc.Debug.Log("ImageResCloudRes:word =" + word);
-        }
+        return ret;
     },
 
 
+    IsContainsKey:function(key) {
+        var ret = false;
+        if (Common.BlankString(key)) {
+            return ret;
+        }
+        this.listItem.forEach((item) => {
+            var p = item;// as ImageResInternal;
+            if (ret == false) {
+                if (p != null) {
+                    ret = p.IsHasKey(key);
+                }
+            } else {
+                return ret;
+            }
+        });
 
-});
+        
+        return ret;
+    },
 
-// Config.main = new Config();
+    GetImage:function(key) {
+        var ret = "";
 
+        if (Common.BlankString(key)) {
+            return ret;
+        }
+        this.listItem.forEach((item) => {
+            var p = item;
+            if (Common.BlankString(ret)) {
+                if (p != null) {
+                    ret = p.GetImage(key); 
+                }
+            } else {
+                return;
+            }
+        });
+ 
+
+        return ret;
+    },
+
+
+
+    GetImageBoard:function(key) {
+        var ret = Vec4.ZERO;
+
+        if (Common.BlankString(key)) {
+            return ret;
+        }
+        this.listItem.forEach((item) => {
+            var p = item;// as cc.ImageResInternal;
+            // Debug.Log("GetImageBoard ScoreBg 0 ret="+ret);
+            if ((ret.x == 0)&&(ret.y == 0)&&(ret.z == 0)&&(ret.w == 0)) {
+                if (p != null) {
+                    ret = p.GetImageBoard(key);
+                    // Debug.Log("GetImageBoard ScoreBg 2 ret="+ret);
+                }
+            } else {
+                // Debug.Log("GetImageBoard ScoreBg 1 ret="+ret);
+                return;
+            }
+        });
+ 
+
+        return ret;
+    },
+
+
+
+}); 
 
 //单例对象 方法二
 ImageResCloudRes._main = null;
 ImageResCloudRes.main = function () {
     if (!ImageResCloudRes._main) {
         ImageResCloudRes._main = new ImageResCloudRes();
-        //ImageResCloudRes._main.Load();
+        ImageResCloudRes._main.Init();
     }
     return ImageResCloudRes._main;
 }
