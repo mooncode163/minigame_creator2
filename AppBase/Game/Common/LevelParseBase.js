@@ -126,7 +126,7 @@ var LevelParseBase = cc.Class({
                     info.isAd = true;
                 }
                 {
-                    if (info.type == LevelParseBase.FPLACE_ITEM_TYPE_LOCK) {
+                    if (info.type == LevelParseBase.PLACE_ITEM_TYPE_LOCK) {
                         info.isAd = true;
                     }
                 }

@@ -1,6 +1,6 @@
 var UIView = require("UIView");
 var AppRes = require("AppRes");
-var HomeViewController = require("HomeViewController");
+// var HomeViewController = require("HomeViewController");
 var SettingViewController = require("SettingViewController");
 
 
@@ -95,7 +95,7 @@ cc.Class({
     OnClickBtnMore: function (event, customEventData) {
     },
     OnClickBtnShare: function (event, customEventData) {
-        cc.Share.main().ShareImageText("", cc.AppRes.SHARE_TITLE, cc.AppRes.SHARE_IMAGE_URL, "");
+        cc.Share.main().ShareImageText("", cc.Config.main().shareTitle, cc.Config.main().shareUrl, "");
     },
     OnClickBtnSetting: function (event, customEventData) {
         cc.Debug.Log("UIHomeSideBar OnClickBtnSetting 1");

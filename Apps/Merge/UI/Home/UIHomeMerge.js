@@ -1,7 +1,7 @@
 var UIHomeBase = require("UIHomeBase");
 var AppRes = require("AppRes"); 
 var GameViewController = require("GameViewController"); 
-
+var SettingViewController = require("SettingViewController");
 var UIHomeMerge =cc.Class({
     extends: UIHomeBase,
     properties: {  
@@ -99,6 +99,9 @@ var UIHomeMerge =cc.Class({
         if (this.controller != null) {
             var navi = this.controller.naviController;
             navi.Push(GameViewController.main());
+            // navi.Push(SettingViewController.main());
+            
+
         }
     },
     GotoGame: function () {

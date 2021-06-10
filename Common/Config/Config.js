@@ -34,13 +34,26 @@ var Config = cc.Class({
                 return  this.configCommon.GetCloudResUrl(); 
             },
         },
+        shareUrl:
+        {
+            get: function () { 
+                return  this.configCommon.GetShareUrl(); 
+            },
+        },
+        shareTitle:
+        {
+            get: function () { 
+                return  this.configCommon.GetShareTitle(); 
+            },
+        },
         version:
         {
             get: function () { 
                 return  this.configCommon.GetString("version",""); 
             },
-        },
+        }, 
 
+        
         appId:
         {
             get: function () {

@@ -19,6 +19,7 @@ var ShareWeiXin = cc.Class({
 
     },
 
+    //分享图片比例 5:4
     ShareImageText: function (source, title, pic, url) {
         this.SetWeiXinMPShareMenu(title, pic);
         wx.shareAppMessage({

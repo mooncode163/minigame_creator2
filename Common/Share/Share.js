@@ -19,6 +19,7 @@ var Share = cc.Class({
         this.platform.SetWeiXinMPShareMenu(title, pic);
     },
 
+  
     ShareImageText: function (source, title, pic, url) {
         if (this.platform == null) {
             return;

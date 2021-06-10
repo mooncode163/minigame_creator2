@@ -59,6 +59,18 @@ var ConfigInternal = cc.Class({
         return cc.JsonUtil.GetItem(this.rootJson.CloudRes, key, ""); 
     }, 
 
+
+    GetShareUrl: function () { 
+        var key = "url"; 
+        return cc.JsonUtil.GetItem(this.rootJson.Share, key, ""); 
+    }, 
+
+    GetShareTitle: function () { 
+        var key = "title"; 
+        return cc.JsonUtil.GetItem(this.rootJson.Share, key, ""); 
+    }, 
+
+
     GetAppIdOfStore(store) {
         cc.Debug.Log("GetAppIdOfStore store=" + store);
         var appid = this.rootJson.APPID;

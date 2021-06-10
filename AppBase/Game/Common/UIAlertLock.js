@@ -83,7 +83,7 @@ var UIAlertLock = cc.Class({
 
     OnClickBtnYes: function (event, customEventData) {
         this.OnClose();
-        cc.Share.main().ShareImageText("", cc.AppRes.SHARE_TITLE, cc.AppRes.SHARE_IMAGE_URL, "");
+        cc.Share.main().ShareImageText("", cc.Config.main().shareTitle, cc.Config.main().shareUrl, "");
         //this.scheduleOnce(this.DoUnLockGame, 1);
         this.DoUnLockGame();
     },

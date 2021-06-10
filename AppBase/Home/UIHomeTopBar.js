@@ -95,7 +95,7 @@ cc.Class({
     OnClickBtnMore: function (event, customEventData) {
     },
     OnClickBtnShare: function (event, customEventData) {
-        cc.Share.main().ShareImageText("", cc.AppRes.SHARE_TITLE, cc.AppRes.SHARE_IMAGE_URL, "");
+        cc.Share.main().ShareImageText("",cc.Config.main().shareTitle, cc.Config.main().shareUrl, "");
     },
     OnClickBtnSetting: function (event, customEventData) {
         // SettingViewController.main().Show(null,null);

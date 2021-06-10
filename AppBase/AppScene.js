@@ -1,5 +1,5 @@
 var AppSceneBase = require("AppSceneBase");
-var MainViewController = require("MainViewController");
+var InitViewController = require("InitViewController");
 var HomeViewController = require("HomeViewController");
 var TabBarViewController = require("TabBarViewController");
 var TabBarItemInfo = require("UITabBarItem");
@@ -32,7 +32,7 @@ cc.Class({
         // var controller = TabBarViewController.main();
         // {
         //     var info = new TabBarItemInfo();
-        //     info.controller = MainViewController.main();
+        //     info.controller = InitViewController.main();
         //     info.title = "main";
         //     info.pic = "AppCommon/UI/Home/BtnHome";
         //     controller.AddItem(info);
@@ -46,7 +46,7 @@ cc.Class({
         //     controller.AddItem(info);
         // }
 
-       this.SetRootViewController(MainViewController.main());//MainViewController HomeViewController controller
+       this.SetRootViewController(InitViewController.main());//InitViewController HomeViewController controller
     },
 
     // onLoad: function () {

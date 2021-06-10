@@ -145,33 +145,7 @@ var AppSceneBase = cc.Class({
             cc.Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height+" sizeCanvas="+this.sizeCanvas);
    
         }
-
-        // //config
-        // {
-        //     var info = new cc.LoadItemInfo();
-        //     info.id = cc.LoadItemInfo.CONFIG;
-        //     info.isLoad = false;
-        //     this.listProLoad.push(info);
-
-        //     var cf = cc.Config.main();
-        //     cf.SetLoadFinishCallBack(this.AppPreLoadDidFinish.bind(this), info);
-        //     //cf.ParseJson(false);
-        // }
-        // //language
-        // {
-        //     var info = new cc.LoadItemInfo();
-        //     info.id = cc.LoadItemInfo.LANGUAGE;
-        //     info.isLoad = false;
-        //     this.listProLoad.push(info);
-
-        //     var lan = cc.Language.main();
-        //     lan.SetLoadFinishCallBack(this.AppPreLoadDidFinish.bind(this), info);
-        // }
-
-        //UIViewAlert
-        // var vm = cc.ViewAlertManager.main();
-
-        cc.AppPreLoad.main().Load({
+        cc.CloudResPreLoad.main().Load({
             success: function (p) {
                 //启动app
                 this.isHasRunApp = true;
@@ -196,6 +170,33 @@ var AppSceneBase = cc.Class({
                 this.RunApp();
             }.bind(this),
         });
+       
+
+        // cc.AppPreLoad.main().Load({
+        //     success: function (p) {
+        //         //启动app
+        //         this.isHasRunApp = true;
+
+        //         var isFirstRun = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_FIRST_RUN, true);
+        //         cc.Debug.Log("isFirstRun ddd=" + isFirstRun);
+        //         if (isFirstRun) {
+        //             cc.Common.gold = cc.AppRes.GOLD_INIT_VALUE;
+        //             //第一次安装
+        //             cc.Common.SetItemOfKey(cc.CommonRes.KEY_FIRST_RUN, false);
+        //             cc.Common.SetItemOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, true);
+        //             var ret = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, false);
+        //             cc.Debug.Log("KEY_BACKGROUND_MUSIC=" + ret);
+
+        //             cc.Common.SetItemOfKey(cc.CommonRes.KEY_BTN_SOUND, true);
+        //         }
+
+        //         var lan = cc.Language.main();
+        //         var lanid = cc.Common.GetItemOfKey(cc.CommonRes.KEY_LANGUAGE, cc.Language.main().defaultLanId);
+        //         lan.SetLanguage(lanid);
+
+        //         this.RunApp();
+        //     }.bind(this),
+        // });
     },
     // CheckAllLoad: function () {
     //     var isLoadAll = true;
