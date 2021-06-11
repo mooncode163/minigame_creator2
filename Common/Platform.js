@@ -33,6 +33,13 @@ var Platform = cc.Class({
                 return (cc.sys.platform == cc.sys.WECHAT_GAME) ? true : false;
             },
         },
+
+        isQQ: {
+            get: function () {
+                return (cc.sys.platform == cc.sys.QQ_PLAY) ? true : false;
+            },
+        },
+
         isFacebook: {
             get: function () {
                 return (cc.sys.platform == cc.sys.FB_PLAYABLE_ADS) ? true : false;

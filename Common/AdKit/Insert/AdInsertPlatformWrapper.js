@@ -5,9 +5,12 @@ var AdInsertPlatformWrapper = cc.Class({
     },
 
     GetPlatform: function () {
-        var p = null;
-        if (cc.Common.main().isWeiXin) {
+        var p = null; 
+        if (cc.Platform.main.isWeiXin) {
             p = new cc.AdInsertWeiXin();
+        }
+        if (cc.Platform.main.isQQ) {
+            p = new cc.AdInsertMooSnow();
         }
         return p;
     },

@@ -6,8 +6,11 @@ var AdBannerPlatformWrapper = cc.Class({
 
     GetPlatform: function () {
         var p = null;
-        if (cc.Common.main().isWeiXin) {
+        if (cc.Platform.main.isWeiXin) {
             p = new cc.AdBannerWeiXin();
+        }
+        if (cc.Platform.main.isQQ) {
+            p = new cc.AdBannerMooSnow();
         }
         return p;
     },

@@ -5,9 +5,12 @@ var AdVideoPlatformWrapper = cc.Class({
     },
 
     GetPlatform: function () {
-        var p = null;
-        if (cc.Common.main().isWeiXin) {
+        var p = null; 
+        if (cc.Platform.main.isWeiXin) {
             p = new cc.AdVideoWeiXin();
+        }
+        if (cc.Platform.main.isQQ) {
+            p = new cc.AdVideoMooSnow();
         }
         return p;
     },
