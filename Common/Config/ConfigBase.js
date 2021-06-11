@@ -1,4 +1,5 @@
 
+// var Common = require("Common");
 //var Source = require("Source");
 //var LoadItemInfo = require("LoadItemInfo");
 //creator 解析json： https://blog.csdn.net/foupwang/article/details/79660524
@@ -12,7 +13,7 @@ var ConfigBase = cc.Class({
         countLoad: 0,
         listItem: {
             default: [],
-            type: cc.Object
+            type: cc.ConfigInternalBase
         },
         rootJson: null,
         fileJson: "",

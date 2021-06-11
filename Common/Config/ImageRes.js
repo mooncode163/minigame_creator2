@@ -1,11 +1,12 @@
 var Dictionary = require("Dictionary");
+var ConfigBase = require("ConfigBase");
 // var Common = require("Common");
 //var Source = require("Source");
 //var LoadItemInfo = require("LoadItemInfo");
 //creator 解析json： https://blog.csdn.net/foupwang/article/details/79660524
 var ImageRes = cc.Class({
     //cc.js.getClassName
-    extends: cc.Object,
+    extends: cc.ConfigBase,
     statics: {
         // 声明静态变量   
 
@@ -19,8 +20,47 @@ var ImageRes = cc.Class({
         countMax: 3,
 
     },
-    Init: function () {
+    Init: function () { 
+        var strDir = cc.Common.RES_CONFIG_DATA + "/Image";
+        var fileName = "ImageResApp.json";
+        // {
+        //     this.imageResApp = new cc.ImageResInternal();
+        //     this.imageResApp.fileJson = strDir + "/" + fileName;
+        //     this.listItem.push(this.imageResApp);
+        // }
 
+        strDir =  cc.Common.RES_CONFIG_DATA + "/Image";
+        fileName = "ImageResAppCommon.json";
+        // {
+        //     this.imageResAppCommon = new cc.ImageResInternal();
+        //     this.imageResAppCommon.fileJson = strDir + "/" + fileName;
+        //     this.listItem.push(this.imageResAppCommon);
+        // }
+
+        // strDir = Common.RES_CONFIG_DATA_COMMON + "/Image";
+        strDir = "Common/UI"  
+        fileName = "ImageRes.json";
+        // {
+        //     this.imageResCommon = new cc.ImageResInternal();
+        //     this.imageResCommon.fileJson = strDir + "/" + fileName;
+        //     this.listItem.push(this.imageResCommon);
+        // }
+
+
+        // if (!Platform.isCloudRes) 
+        {
+
+            // strDir = Common.CLOUD_RES_DIR;
+            strDir = cc.CloudRes.main().rootPath;
+            fileName = "ImageResCloudRes.json";
+            {
+                this.imageResCloudRes = new cc.ImageResInternal();
+                this.imageResCloudRes.fileJson = strDir + "/" + fileName;
+                this.imageResCloudRes.isCloud = cc.Platform.main.isCloudRes;
+                this.listItem.push(this.imageResCloudRes);
+            }
+
+        }
     },
 
 
@@ -42,7 +82,7 @@ var ImageRes = cc.Class({
     }, 
     }
     */
-    Load: function (obj) {
+    Load22: function (obj) {
         var filepath = "";
         this.countLoad = 0;
         this.imageResApp = new cc.ImageResInternal();
@@ -55,7 +95,7 @@ var ImageRes = cc.Class({
                 }.bind(this),
                 fail: function () {
                     this.OnFinish(obj);
-                },
+                }.bind(this),
             });
 
         /*
@@ -91,36 +131,41 @@ var ImageRes = cc.Class({
 
     //bool
     IsHasBoard(key) {
+      
+
         var ret = false;
-        ret = this.imageResApp.IsHasBoard(key);
-        if (!ret) {
-            if (this.imageResAppCommon != null) {
-                ret = this.imageResAppCommon.IsHasBoard(key);
+        if (cc.Common.BlankString(key)) {
+            return ret;
+        } 
+
+        this.listItem.forEach(function (item, index) {
+            var p = item  
+            if (ret == false) {
+                if (p != null) {
+                    ret = p.IsHasBoard(key);
+                }
+            } else {
+                return ret;
             }
-        }
-        if (!ret) {
-            if (this.imageResCommon != null) {
-                ret = this.imageResCommon.IsHasBoard(key);
-            }
-        }
-        return ret;
+        }.bind(this)); 
+
     },
 
-    IsContainsKey(key) {
+    IsContainsKey(key) { 
         var ret = false;
-        ret = this.imageResApp.ContainsKey(key);
-        if (!ret) {
-            if (this.imageResAppCommon != null) {
-                ret = this.imageResAppCommon.ContainsKey(key);
+        if (cc.Common.BlankString(key)) {
+            return ret;
+        } 
+        this.listItem.forEach(function (item, index) {
+            var p = item  
+            if (ret == false) {
+                if (p != null) {
+                    ret = p.ContainsKey(key);
+                }
+            } else {
+                return ret;
             }
-
-        }
-        if (!ret) {
-            if (this.imageResCommon != null) {
-                ret = this.imageResCommon.ContainsKey(key);
-            }
-        }
-        return ret;
+        }.bind(this)); 
     },
     //异步
     /*
@@ -131,51 +176,60 @@ var ImageRes = cc.Class({
         fail: function () {
         }, 
     }
-*/
+*/ 
+
     GetImage(key) {
         var ret = "";
-        ret = this.imageResApp.GetImageSync(key);
-        if (!ret) {
-            if (this.imageResAppCommon != null) {
-                ret = this.imageResAppCommon.GetImageSync(key);
-            }
+
+        if (cc.Common.BlankString(key)) {
+            return ret;
         }
-        if (!ret) {
-            if (this.imageResCommon != null) {
-                ret = this.imageResCommon.GetImageSync(key);
+
+         this.listItem.forEach(function (item, index) {
+            var p = item;
+            if (cc.Common.BlankString(ret)) {
+                if (p != null) {
+                    ret = p.GetImage(key);
+                    if (p == this.imageResCloudRes) {
+                        if (cc.Platform.main.isCloudRes) {
+                            // 从CloudRes缓存目录读取
+                            ret = cc.CloudRes.main().rootPath+"/" + ret;
+                        }else{
+                            // 在resoureces目录
+                            ret = cc.Common.CLOUD_RES_DIR + "/" + ret;
+                        }
+                    }
+
+                }
+            } else {
+                return;
             }
-        }
+        }.bind(this)); 
+
+      
+
         return ret;
     },
+
+
     GetImageBoard(key) {
 
+
         var ret = "";
-        ret = this.imageResApp.GetImageBoardSync(key);
-        if (!ret) {
-            if (this.imageResAppCommon != null) {
-                ret = this.imageResAppCommon.GetImageBoardSync(key);
+        if (cc.Common.BlankString(key)) {
+            return ret;
+        } 
+        this.listItem.forEach(function (item, index) {
+            var p = item  
+            if (ret == false) {
+                if (p != null) {
+                    ret = p.GetImageBoard(key);
+                }
+            } else {
+                return ret;
             }
-        }
-        if (!ret) {
-            if (this.imageResCommon != null) {
-                ret = this.imageResCommon.GetImageBoardSync(key);
-            }
-        }
-        return ret;
+        }.bind(this)); 
     },
-    // GetImageInternal(obj) {
-    //     var key = "key";
-    //     var ret = "";
-    //     if (obj != null) {
-    //         key = obj.key;
-    //     }
-    //     ret = this.GetImageSync(key);
-    //     if (obj != null) {
-    //         if (obj.success != null) {
-    //             obj.success(ret);
-    //         }
-    //     }
-    // },
 
 
 });

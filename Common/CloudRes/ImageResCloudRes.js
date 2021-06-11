@@ -1,7 +1,7 @@
-  
+var ConfigBase = require("ConfigBase");
 var ImageResCloudRes = cc.Class({
     //cc.js.getClassName
-    extends: cc.ConfigBase,
+    extends: ConfigBase,
     statics: {
         // 声明静态变量
 
@@ -12,15 +12,19 @@ var ImageResCloudRes = cc.Class({
 
     },
     Init:function() { 
-       var strDir = "/Common/UI"  
+       var strDir = "Common/UI"  
        var fileName = "ImageRes.json";
-       this.listItem = [];
+    //    this.listItem = [];
         {
             this.imageResCommon = new cc.ImageResInternal();
             this.imageResCommon.fileJson = strDir + "/" + fileName;
             this.listItem.push(this.imageResCommon);
         } 
     }, 
+
+    // Load: function (obj) {
+    //     this.LoadBase(obj); 
+    // },
     
     GetImageBoardString:function(path) {
         var ret = "";

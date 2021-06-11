@@ -73,7 +73,7 @@ var ConfigInternalBase = cc.Class({
     },
 
     ParseData() {
-        Debug.Log("ConfigInternalBase ParseData");
+        cc.Debug.Log("ConfigInternalBase ParseData");
     },
 
 

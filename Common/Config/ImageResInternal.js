@@ -1,14 +1,13 @@
 var Dictionary = require("Dictionary");  
 var ImageResInternal = cc.Class({ 
-    extends: cc.Object,
+    extends: cc.ConfigInternalBase,
     statics: {
         // 声明静态变量  
         callbackFinish: null,
         KEY_BOARD: "board", 
         KEY_PATH: "path",  
     },
-    properties: {
-        jsonRoot: null,
+    properties: { 
         infoPreload:null,
     },
  
@@ -22,47 +21,43 @@ var ImageResInternal = cc.Class({
     }, 
     }
     */
-    Load: function (obj) {
-        var filepath = obj.filepath;
-        cc.Debug.Log("ImageRes:filepath =" + filepath);
-        // /*
-        // if (cc.Common.main().isWeiXin) {
-        //     // 加载json文件
-        //     cc.assetManager.loadRemote({ url: filepath, type: "json" }, function (err, rootJson) {
-        //         this.ParseData(rootJson);
-        //         // this.GetImageInternal(obj);
-        //         if(obj.success!=null)
-        //         {
-        //             obj.success(this);
-        //         }
-        //     }.bind(this));
-        // } else 
-        {
-            //cc.JsonAsset   cc.loader.load
-            //去除后缀
-            filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
-            cc.resources.load(filepath, function (err, rootJson) {
-                this.ParseData(rootJson.json);
-                // this.GetImageInternal(obj);
-                if(obj.success!=null)
-                {
-                    obj.success(this);
-                }
-            }.bind(this));
+    // Load: function (obj) {
+    //     var filepath = obj.filepath;
+    //     if(filepath=="undefined")
+    //     {
+    //         filepath = this.fileJson;
+    //     }
+    //     cc.Debug.Log("ImageRes:filepath =" + filepath);
+    //     // /*
+    //     // if (cc.Common.main().isWeiXin) {
+    //     //     // 加载json文件
+    //     //     cc.assetManager.loadRemote({ url: filepath, type: "json" }, function (err, rootJson) {
+    //     //         this.ParseData(rootJson);
+    //     //         // this.GetImageInternal(obj);
+    //     //         if(obj.success!=null)
+    //     //         {
+    //     //             obj.success(this);
+    //     //         }
+    //     //     }.bind(this));
+    //     // } else 
+    //     {
+    //         //cc.JsonAsset   cc.loader.load
+    //         //去除后缀
+    //         filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
+    //         cc.resources.load(filepath, function (err, rootJson) {
+    //             this.ParseData(rootJson.json);
+    //             // this.GetImageInternal(obj);
+    //             if(obj.success!=null)
+    //             {
+    //                 obj.success(this);
+    //             }
+    //         }.bind(this));
  
-        }
-        // */
-    },
+    //     }
+    //     // */
+    // },
 
-
-    ParseData: function (json) {
-        cc.Debug.Log("ImageRes:ParseData");
-        if (json == null) {
-            cc.Debug.Log("ImageRes:ParseData=null");
-        }
-        this.jsonRoot = json;
-
-    },
+ 
 
 
     // 255,100,200,255 to color return cc.Vec4  47,47,47,255
@@ -92,8 +87,8 @@ var ImageResInternal = cc.Class({
     },
 
     //同步 synchronization
-    GetImageSync(key) {
-        return cc.JsonUtil.GetItem(this.jsonRoot[key], ImageResInternal.KEY_PATH, ""); 
+    GetImage(key) {
+        return cc.JsonUtil.GetItem(this.rootJson[key], ImageResInternal.KEY_PATH, ""); 
     },
 
     IsHasBoard(key) { 
@@ -101,18 +96,18 @@ var ImageResInternal = cc.Class({
         {
             return false;
         }
-        return cc.JsonUtil.ContainsKey(this.jsonRoot[key], ImageResInternal.KEY_BOARD);
+        return cc.JsonUtil.ContainsKey(this.rootJson[key], ImageResInternal.KEY_BOARD);
     },
 
     //9宫格图片边框参数 (left,right,top,bottom)
     //cc.Vec4 (left,right,top,bottom)
-    GetImageBoardSync(key) {
-        var str = cc.JsonUtil.GetItem(this.jsonRoot[key], ImageResInternal.KEY_BOARD, "");
+    GetImageBoard(key) {
+        var str = cc.JsonUtil.GetItem(this.rootJson[key], ImageResInternal.KEY_BOARD, "");
         return this.String2Vec4(str);
     },
     ContainsKey(key)
     { 
-        return cc.JsonUtil.ContainsKey(this.jsonRoot, key);
+        return cc.JsonUtil.ContainsKey(this.rootJson, key);
     },
   
  

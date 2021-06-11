@@ -320,7 +320,13 @@ var Common = cc.Class({
                 return false;
             }
         },
-
+        BlankString: function (str) {
+            if (typeof str == "undefined" || str == null || str == "") {
+                return true;
+            } else {
+                return false;
+            }
+        },
         CanvasToScreenWidth(canvasSize, w) {
             let screenSize = cc.view.getVisibleSizeInPixel();//屏幕分辨率
             var ret = w * screenSize.width / canvasSize.width;
