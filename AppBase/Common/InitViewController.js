@@ -89,13 +89,13 @@ var InitViewController = cc.Class({
             cc.Common.SetBoolOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, true);
 
             //languageCode
-            var lan = sys.language;
+            var lan = cc.sys.language;
             cc.Common.SetItemOfKey(cc.CommonRes.KEY_LANGUAGE, lan);
             cc.Language.main().SetLanguage(lan);
         }
         else {
 
-            var lan = cc.Common.GetItemOfKey(cc.CommonRes.KEY_LANGUAGE, sys.LANGUAGE_CHINESE);
+            var lan = cc.Common.GetItemOfKey(cc.CommonRes.KEY_LANGUAGE, cc.sys.LANGUAGE_CHINESE);
             cc.Language.main().SetLanguage(lan);
 
         }

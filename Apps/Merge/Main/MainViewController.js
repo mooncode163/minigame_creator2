@@ -10,6 +10,7 @@ var MainViewController = cc.Class({
 
     ViewDidLoad: function () {
         this._super();
+        cc.MooSnow.main().Init();
         this.GotoHome();
     },
  
