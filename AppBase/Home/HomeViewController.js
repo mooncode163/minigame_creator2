@@ -27,7 +27,7 @@ var HomeViewController = cc.Class({
         // cc.CloudRes.main().StartDownload();
     },
 
-    CreateUIInternal: function () {
+    CreateUI: function () {
         var node = cc.instantiate(this.uiPrefab);
         this.ui = node.getComponent(UIHomeBase);
         this.ui.SetController(this);
@@ -50,17 +50,7 @@ var HomeViewController = cc.Class({
         }
         this.runCount++;
     },
-
-    CreateUI: function () {
-        cc.Debug.Log("HomeViewController CreateUI");
-        cc.LevelManager.main().StartParsePlace(function () { 
-            cc.LevelManager.main().StartParseGuanka(function () {
-                this.CreateUIInternal();
-            }.bind(this)
-            ); 
-        }.bind(this)
-        );
-    },
+ 
 
     LoadPrefabDefault: function () {
         // var strPrefabDefault = "Common/Prefab/Home/UIHomeDefault";

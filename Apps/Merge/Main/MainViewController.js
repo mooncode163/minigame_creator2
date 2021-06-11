@@ -10,54 +10,10 @@ var MainViewController = cc.Class({
 
     ViewDidLoad: function () {
         this._super();
-        //moon ui for test
-        var str = cc.Language.main().GetString("APP_NAME");
-        cc.Debug.Log("Language GetString=" + str);
-        cc.Debug.Log("MainViewController 0");
-        var isShowClound = false;
-        if (cc.Common.main().isWeiXin) {
-            cc.Debug.Log("MainViewController 1");
-            var isDownload = cc.Common.GetBoolOfKey(cc.AppRes.KEY_DOWNLOAD_CLOUNDRES, false);
-            if (!isDownload) {
-                cc.Debug.Log("MainViewController 2");
-                //第一次 下载资源
-                isShowClound = true;
-            } else {
-                cc.Debug.Log("MainViewController 3");
-                cc.CloudResVersion.main().Load(function () {
-                    var versionNow = cc.Config.main().version;
-                    var versionLocal = cc.CloudResVersion.main().version;
-                    cc.Debug.Log("MainViewController version: versionNow=" + versionNow + " versionLocal=" + versionLocal);
-                    if (versionNow > versionLocal) {
-                        //需要更新资源 
-                        isShowClound = true;
-                    }
-
-                }.bind(this));
-            }
-        }
-
-        if (isShowClound) {
-            this.GotoCloundRes();
-        } else {
-            this.GotoHome();
-        }
-    },
-
-    CloundResDidClose(p) {
         this.GotoHome();
     },
-
-    GotoCloundRes() {
-        CloudResViewController.main().Show(null, this.CloundResDidClose.bind(this));
-    },
-    GotoHome() {
-        // cc.ImageRes.main().GetImage({
-        //     key: "apppreload",
-        //     success: function (image) {
-                
-        //     }.bind(this),
-        // });
+ 
+    GotoHome() { 
         this.Push(HomeViewController.main());//HomeViewController
     },
 });

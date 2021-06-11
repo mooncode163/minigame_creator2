@@ -1,4 +1,4 @@
-var Dictionary = require("Dictionary");
+ 
 
 var CloudResVersion = cc.Class({
     //cc.js.getClassName
@@ -9,7 +9,8 @@ var CloudResVersion = cc.Class({
     },
     properties: {
         rootJson: null,
-        version:
+        versionNet:"1.0.0",
+        versionLocal:
         {
             get: function () {
                 if (this.rootJson != null) {
@@ -20,82 +21,93 @@ var CloudResVersion = cc.Class({
         },
 
 
-    },
+    }, 
+   
+    
+    LoadVersion:function(obj) {
+        cc.ResManager.main().LoadUrl({
+            url: cc.ConfigCloudRes.main().cloudResVersionUrl,
+            success: function (p, data) {
+                this.versionNet = data.json["version"]; 
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }.bind(this),
+            finish: function () {
+                this.LoadInternal(obj);
+            }.bind(this),
+        }); 
+    } , 
 
-    LoadFinish(err, rootJson) {
-        if (err) {
-            cc.Debug.Log("CloudResVersion:err=" + err);
-            // return;
+    /*
+        {  
+          success: (p:any) => {
+              
+          }, 
+          fail: (p:any) => {
+              
+          },
         }
-        if (err == null) {
-            if (rootJson.json == null) {
-                cc.Debug.Log("LoadFinish weixin CloudResVersion:ParseData");
-                this.ParseData(rootJson);
-            } else {
-                //resource里的json文件
-                cc.Debug.Log("LoadFinish resource CloudResVersion:ParseData");
-                this.ParseData(rootJson.json);
-            }
-        }
-        if (this.callbackFinish != null) {
-            this.callbackFinish();
-        }
-    },
+        */
+    LoadInternal:function(obj) { 
+        var dirRoot = CloudRes.main.rootPath;
+        var filepath = dirRoot + "/version.json"; 
 
+        if (cc.Platform.main.isCloudRes) {
+            cc.ResManager.main().LoadUrl(
+                {
+                    url: filepath,
 
-    Load(cbFinish) {
-        this.callbackFinish = cbFinish;
-        if (this.rootJson != null) {
-            if (this.callbackFinish != null) {
-                this.callbackFinish();
-            }
-            return;
-        }
-        // var dirRoot = cc.Common.CLOUD_RES_DIR;
-        // if (cc.Common.main().isWeiXin) {
-        //     dirRoot = cc.FileSystemWeixin.main().GetRootDirPath() + "/" + cc.Common.CLOUD_RES_DIR_NAME;
-        // }
-        var dirRoot = cc.CloudRes.main().rootPath;
-        var filepath = dirRoot + "/version.json";
+                    success: function (p, data) {
+                        this.rootJson = data.json;
+                        this.ParseData();
+                        if (obj.success != null) {
+                            obj.success(this);
+                        }
+                    }.bind(this),
+                    fail: function (p, error) {
+                        if (obj.fail != null) {
+                            obj.fail(this);
+                        }
+                    }.bind(this), 
+                });
 
-        if (cc.Common.main().isWeiXin) {
-            // 加载json文件 { ext: ".json" },
-            cc.assetManager.loadRemote(filepath,  function (err, rootJson) {
-                this.LoadFinish(err, rootJson);
-            }.bind(this));
         } else {
-            //cc.JsonAsset   cc.loader.load
-            //去除后缀
-            filepath = cc.FileUtil.GetFileBeforeExtWithOutDot(filepath);
-            cc.resources.load(filepath, function (err, rootJson) {
-                this.LoadFinish(err, rootJson);
-            }.bind(this));
+
+
+            cc.ResManager.main().Load(
+                {
+                    filepath: filepath,
+                    success: function (p, data) {
+                        this.rootJson = data.json;
+                        this.ParseData();
+                        if (obj.success != null) {
+                            obj.success(this);
+                        }
+                    }.bind(this),
+                    fail: function (p, error) {
+                        if (obj.fail != null) {
+                            obj.fail(this);
+                        }
+                    }.bind(this), 
+                 
+                });
         }
 
+    }, 
+
+    ParseData:function() {
+        // var word = this.rootJson.words;
+
+    }, 
 
 
-    },
-
-    ParseData: function (json) {
-        cc.Debug.Log("CloudResVersion:ParseData start");
-        this.rootJson = json;
-        if (this.rootJson == null) {
-            cc.Debug.Log("CloudResVersion:ParseData  is null");
-        }
-
-        var word = json.words;
-        if (word != null) {
-            cc.Debug.Log("CloudResVersion:word =" + word);
-        }
-    },
-
-
-
-});
-
-// Config.main = new Config();
-
-
+}); 
 //单例对象 方法二
 CloudResVersion._main = null;
 CloudResVersion.main = function () {
