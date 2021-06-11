@@ -12,6 +12,9 @@ var GameLevelParse = cc.Class({
     },
 
     properties: {
+        countLoad : 0,
+        loadMax: 0,
+    
         listGameItems: {
             default: [],
             type: cc.Object
@@ -136,7 +139,7 @@ var GameLevelParse = cc.Class({
     },
 
 
-    StartParseGameItems: function () {
+    StartParseGameItems: function (obj) {
         if ((this.listGameItems != null) && (this.listGameItems.length != 0)) {
             return;
         }
@@ -144,44 +147,90 @@ var GameLevelParse = cc.Class({
         var idx = cc.LevelManager.main().placeLevel;
         var infoPlace = cc.LevelManager.main().GetPlaceItemInfo(idx);
         var filepath = cc.Common.GAME_RES_DIR + "/Level/" + infoPlace.id;// + ".json";
-        cc.resources.load(filepath, function (err, rootJson) {
-            if (err) {
-                cc.Debug.Log("GameItems:err=" + err);
-            }
-            if (err == null) {
-                cc.Debug.Log("GameItems:ParseGameItems");
-                this.ParseGameItems(rootJson.json);
-            }
-        }.bind(this));
+     
+
+        cc.ResManager.main().Load({
+            filepath: filepath,
+            success: function (p, data) {
+                this.ParseGameItems(data.json);
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }.bind(this)
+        });
 
     },
 
 
-    StartParseGameItemsDefault: function () {
+    StartParseGameItemsDefault: function (obj) {
         if ((this.listGameItemDefault != null) && (this.listGameItemDefault.length != 0)) {
             return;
         }
 
         var idx = 0;
         var infoPlace = cc.LevelManager.main().GetPlaceItemInfo(idx);
-        var filepath = cc.Common.GAME_RES_DIR + "/Level/" + infoPlace.id;// + ".json";
-        cc.resources.load(filepath, function (err, rootJson) {
-            if (err) {
-                cc.Debug.Log("GameItems:err=" + err);
-            }
-            if (err == null) {
-                this.ParseGameItemsDefault(rootJson.json);
-            }
-        }.bind(this));
+        var filepath = cc.Common.GAME_RES_DIR + "/Level/" + infoPlace.id;// + ".json"; 
+
+        cc.ResManager.main().Load({
+            filepath: filepath,
+            success: function (p, data) {
+                this.ParseGameItemsDefault(data.json);
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }.bind(this)
+        });
 
     },
 
+    OnFinish: function(obj,isFail) {
+        this.countLoad++;
+        if (this.countLoad >= this.loadMax) {
+          
+            if(isFail)
+            {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }else{
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }
+        }
+    },
 
+    StartParseGuanka: function (obj) { 
+        this.loadMax = 2;
+        this.countLoad = 0;
+        
+        this.StartParseGameItems({
+            success: function(p) {
+                this.OnFinish(obj,false);
+            }.bind(this),
+            fail: function(p) {
+                this.OnFinish(obj,true);
+            }.bind(this),
+        });
+        this.StartParseGameItemsDefault({
+            success: function(p) {
+                this.OnFinish(obj,false);
+            }.bind(this),
+            fail: function(p) {
+                this.OnFinish(obj,true);
+            }.bind(this),
+        });
 
-    StartParseGuanka: function (callback) {
-        this.callbackGuankaFinish = callback;
-        this.StartParseGameItems();
-        this.StartParseGameItemsDefault();
     },
 
 

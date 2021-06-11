@@ -14,6 +14,7 @@ var ImageResCloudRes = cc.Class({
     Init:function() { 
        var strDir = "/Common/UI"  
        var fileName = "ImageRes.json";
+       this.listItem = [];
         {
             this.imageResCommon = new cc.ImageResInternal();
             this.imageResCommon.fileJson = strDir + "/" + fileName;

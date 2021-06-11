@@ -1,10 +1,10 @@
 var NaviViewController = require("NaviViewController");
 var HomeViewController = require("HomeViewController");
-//var Language = require("Language");
+var MainViewController = require("MainViewController");
 var PlaceViewController = require("PlaceViewController");
 var GuankaViewController = require("GuankaViewController");
 var CloudResViewController = require("CloudResViewController");
-
+var AppSceneBase = require("AppSceneBase"); 
 var InitViewController = cc.Class({
     extends: NaviViewController,
     CloundResDidClose(p) {
@@ -30,21 +30,21 @@ var InitViewController = cc.Class({
     InitLoad: function () {
         var isShowClound = false;
         if (cc.Platform.main.isCloudRes) {
-            Debug.Log("InitViewController 1");
+            //cc.Debug.Log("InitViewController 1");
             var isDownload = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_DOWNLOAD_CLOUNDRES, false);
             if (!isDownload) {
-                Debug.Log("InitViewController 2");
+                //cc.Debug.Log("InitViewController 2");
                 //第一次 下载资源
                 isShowClound = true;
             } else {
-                Debug.Log("InitViewController 3")
+                //cc.Debug.Log("InitViewController 3")
 
                 cc.CloudResVersion.main().LoadVersion(
                     {
                         success: function (p, data) {
                             var versionNet = cc.CloudResVersion.main().versionNet;
                             var versionLocal = cc.CloudResVersion.main().versionLocal;
-                            Debug.Log("InitViewController version: versionNet=" + versionNet + " versionLocal=" + versionLocal);
+                            //cc.Debug.Log("InitViewController version: versionNet=" + versionNet + " versionLocal=" + versionLocal);
                             if (versionNet > versionLocal) {
                                 //需要更新资源 
                                 isShowClound = true;
@@ -104,7 +104,7 @@ var InitViewController = cc.Class({
     },
 
     StartParsePlace: function () {
-        Debug.Log("HomeViewController StartParsePlace");
+        //cc.Debug.Log("HomeViewController StartParsePlace");
         cc.LevelManager.main().StartParsePlace(
             {
                 success: function (p) {
@@ -117,7 +117,7 @@ var InitViewController = cc.Class({
     },
 
     StartParseGuanka() {
-        Debug.Log("HomeViewController StartParseGuanka");
+        //cc.Debug.Log("HomeViewController StartParseGuanka");
         cc.LevelManager.main().StartParseGuanka(
             {
                 success: function (p) {
@@ -157,12 +157,12 @@ var InitViewController = cc.Class({
     },
 
     GotoGame: function () {
-        var p = MainViewController.main;
-        AppSceneBase.main.SetRootViewController(p);
+        var p = MainViewController.main();
+        AppSceneBase.main().SetRootViewController(p);
         var ret = cc.Common.GetBoolOfKey(cc.CommonRes.KEY_BACKGROUND_MUSIC, false);
-        Debug.Log("MusicBgPlay Start");
-        if (ret) {
-            MusicBgPlay.main.PlayBgMusic();
+        //cc.Debug.Log("MusicBgPlay Start");
+        if (ret) { 
+            cc.MusicBgPlay.main().PlayBgMusic();
         }
 
     },
@@ -175,11 +175,10 @@ var InitViewController = cc.Class({
 //单例对象 方法二
 InitViewController._main = null;
 InitViewController.main = function () {
-    if (!InitViewController._main) {
-        cc.Debug.Log("_main is null");
+    if (!InitViewController._main) { 
         InitViewController._main = new InitViewController();
     } else {
-        //cc.Debug.Log("_main is not null");
+        //cc.//cc.Debug.Log("_main is not null");
     }
     return InitViewController._main;
 }

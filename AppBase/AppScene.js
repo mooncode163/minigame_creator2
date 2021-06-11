@@ -27,26 +27,9 @@ cc.Class({
     },
     RunApp: function () {
         cc.Debug.Log("AppScene RunApp");
-        this._super();
-        // InitAd();
-        // var controller = TabBarViewController.main();
-        // {
-        //     var info = new TabBarItemInfo();
-        //     info.controller = InitViewController.main();
-        //     info.title = "main";
-        //     info.pic = "AppCommon/UI/Home/BtnHome";
-        //     controller.AddItem(info);
-        // }
-
-        //   {
-        //     var info = new TabBarItemInfo();
-        //     info.controller = HomeViewController.main();
-        //     info.title = "home";
-        //     info.pic = "App/UI/Home/BtnHome";
-        //     controller.AddItem(info);
-        // }
-
-       this.SetRootViewController(InitViewController.main());//InitViewController HomeViewController controller
+        this._super(); 
+    var p = InitViewController.main();
+       this.SetRootViewController(p);//InitViewController HomeViewController controller
     },
 
     // onLoad: function () {

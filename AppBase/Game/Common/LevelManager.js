@@ -63,7 +63,7 @@ var LevelManager = cc.Class({
 
 
     GetPlaceItemInfo: function (idx) {
-        var game = GameViewController.main().gameBase;
+        // var game = GameViewController.main().gameBase;
         var info =this.listPlace[idx];
         cc.Debug.Log("GetPlaceItemInfo idx=" + idx + " LevelManager.listPlace.length=" + this.listPlace.length);
         return info;
@@ -79,12 +79,24 @@ var LevelManager = cc.Class({
         cc.GameLevelParse.main().StartParseGuanka(callback);
     },
 
+
+         /*
+{ 
+success: function(p) => {
+    
+}, 
+fail: function(p) => {
+    
+},
+}
+*/
     //place 
-    StartParsePlace: function (callback) {
-        //GameViewController.main().gameBase.StartParsePlaceList(callback);
-        cc.GameLevelParse.main().StartParsePlaceList(callback);
+    StartParsePlace: function(obj) { 
+        cc.GameLevelParse.main().StartParsePlaceList(obj);
     },
 
+
+  
   
 
     GotoPreLevel: function () {

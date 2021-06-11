@@ -104,12 +104,7 @@ var HomeViewController = cc.Class({
         cc.Debug.Log("HomeViewController ViewDidUnLoad");
         this._super();
 
-    },
-    LayOutView: function () {
-        cc.Debug.Log("HomeViewController LayOutView");
-        //  base.LayOutView();
-
-    },
+    }, 
 
 });
 

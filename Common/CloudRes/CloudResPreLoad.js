@@ -13,8 +13,8 @@ var CloudResPreLoad = cc.Class({
     }, 
  
     Init: function() {
-        this.listItem.push(cc.ConfigCloudRes.main());
-        this.listItem.push(cc.LanguageCloudRes.main());
+        // this.listItem.push(cc.ConfigCloudRes.main());
+        // this.listItem.push(cc.LanguageCloudRes.main());
         this.listItem.push(cc.ImageResCloudRes.main());
     },
  
@@ -27,7 +27,9 @@ fail: function () {
 }*/
     Load: function(obj) {
         this.countLoad = 0;
-        this.listItem.forEach((item) => {
+
+
+        this.listItem.forEach(function (item, index) {
             item.Load(
                 {
                     // isCloud:false,
@@ -40,7 +42,7 @@ fail: function () {
                         this.OnFinish(obj,true);
                     },  
                 });
-        });  
+        }.bind(this)); 
 
     } ,
 

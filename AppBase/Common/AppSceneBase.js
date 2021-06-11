@@ -145,6 +145,10 @@ var AppSceneBase = cc.Class({
             cc.Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height+" sizeCanvas="+this.sizeCanvas);
    
         }
+
+
+        // this.RunApp();
+
         cc.CloudResPreLoad.main().Load({
             success: function (p) {
                 //启动app

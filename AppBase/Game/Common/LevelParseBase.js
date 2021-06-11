@@ -72,29 +72,48 @@ var LevelParseBase = cc.Class({
     GetPlaceTotal: function () {
         return cc.LevelManager.main().listPlace.length;
     },
-    StartParsePlaceList: function (callback) {
-        if (callback != null) {
-            this.callbackPlaceFinish = callback;
-        }
-        var filepath = cc.Common.GAME_RES_DIR + "/place/place_list";
+
+
+            /*
+      {
+        filepath:"", 
+        success: function(p) => {
+            
+        }, 
+        fail:function (p) => {
+            
+        },
+      }
+      */
+    StartParsePlaceList: function (obj) {
+      
+        var filepath = cc.Common.GAME_RES_DIR + "/place/place_list"; 
         cc.Debug.Log("StartParsePlaceList ");
-        cc.resources.load(filepath, function (err, rootJson) {
-            if (err) {
-                cc.Debug.Log("StartParsePlaceList:err=" + err);
-            }
-            if (err == null) {
-                this.ParsePlaceList(rootJson.json);
-            }
-        }.bind(this));
+
+        cc.ResManager.main().Load({
+            filepath: filepath,
+            success: function (p, data) {
+                this.ParsePlaceList(data.json);
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }.bind(this)
+        });
+  
     },
     ParsePlaceList: function (json) {
         cc.Debug.Log("StartParsePlaceList ParsePlaceList");
         if ((cc.LevelManager.main().listPlace != null) && (cc.LevelManager.main().listPlace.length != 0)) {
             cc.Debug.Log("StartParsePlaceList not 0");
-            if (this.callbackPlaceFinish != null) {
-                cc.Debug.Log("StartParsePlaceList callbackPlaceFinish length = " + cc.LevelManager.main().listPlace.length);
-                this.callbackPlaceFinish();
-            }
+            // if (this.callbackPlaceFinish != null) {
+            //     cc.Debug.Log("StartParsePlaceList callbackPlaceFinish length = " + cc.LevelManager.main().listPlace.length);
+            //     this.callbackPlaceFinish();
+            // }
             return;
         }
         var items = json.items;
@@ -135,25 +154,34 @@ var LevelParseBase = cc.Class({
             cc.LevelManager.main().listPlace.push(info);
         }
 
-        if (this.callbackPlaceFinish != null) {
-            cc.Debug.Log("StartParsePlaceList callbackPlaceFinish length = " + cc.LevelManager.main().listPlace.length);
-            this.callbackPlaceFinish();
-        }
+        // if (this.callbackPlaceFinish != null) {
+        //     cc.Debug.Log("StartParsePlaceList callbackPlaceFinish length = " + cc.LevelManager.main().listPlace.length);
+        //     this.callbackPlaceFinish();
+        // }
     },
-    StartParseGuanka(callback) {
+    StartParseGuanka(obj) {
         this.callbackGuankaFinish = callback;
         var idx = cc.LevelManager.main().placeLevel;
         var infoPlace = cc.LevelManager.main().GetPlaceItemInfo(idx);
         //var filepath = cc.Common.GAME_RES_DIR + "/guanka/item_Bird" + ".json";//+ infoPlace.id 
         var filepath = cc.Common.GAME_RES_DIR + "/guanka/item_" + infoPlace.id;// + ".json";//
-        cc.resources.load(filepath, function (err, rootJson) {
-            if (err) {
-                cc.Debug.Log("config:err=" + err);
-            }
-            if (err == null) {
-                this.ParseGuanka(rootJson.json);
-            }
-        }.bind(this));
+
+        cc.ResManager.main().Load({
+            filepath: filepath,
+            success: function (p, data) {
+                this.ParseGuanka(data.json);
+                if (obj.success != null) {
+                    obj.success(this);
+                }
+            }.bind(this),
+            fail: function (p, error) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            }.bind(this)
+        });
+
+ 
     },
 
     ParseGuankaDidFinish() {

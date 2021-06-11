@@ -8,12 +8,11 @@ var ConfigBase = cc.Class({
     statics: {
         // 声明静态变量   
     },
-    properties: {
-        colorApp: null,
+    properties: { 
         countLoad: 0,
         listItem: {
             default: [],
-            type: cc.ConfigInternalBase
+            type: cc.Object
         },
         rootJson: null,
         fileJson: "",
@@ -36,7 +35,9 @@ var ConfigBase = cc.Class({
             }
             return;
         }
-        this.listItem.forEach((item) => {
+
+
+        this.listItem.forEach(function (item, index) {
             item.Load(
                 {
                     success: function (p) {
@@ -46,7 +47,10 @@ var ConfigBase = cc.Class({
                         this.OnFinish(obj, true);
                     }.bind(this),
                 });
-        });
+        }.bind(this));
+
+
+       
 
     },
     OnFinish: function (obj, isFail) {
