@@ -23,28 +23,28 @@ var ImageRes = cc.Class({
     Init: function () { 
         var strDir = cc.Common.RES_CONFIG_DATA + "/Image";
         var fileName = "ImageResApp.json";
-        // {
-        //     this.imageResApp = new cc.ImageResInternal();
-        //     this.imageResApp.fileJson = strDir + "/" + fileName;
-        //     this.listItem.push(this.imageResApp);
-        // }
+        {
+            this.imageResApp = new cc.ImageResInternal();
+            this.imageResApp.fileJson = strDir + "/" + fileName;
+            this.listItem.push(this.imageResApp);
+        }
 
         strDir =  cc.Common.RES_CONFIG_DATA + "/Image";
         fileName = "ImageResAppCommon.json";
-        // {
-        //     this.imageResAppCommon = new cc.ImageResInternal();
-        //     this.imageResAppCommon.fileJson = strDir + "/" + fileName;
-        //     this.listItem.push(this.imageResAppCommon);
-        // }
+        {
+            this.imageResAppCommon = new cc.ImageResInternal();
+            this.imageResAppCommon.fileJson = strDir + "/" + fileName;
+            this.listItem.push(this.imageResAppCommon);
+        }
 
         // strDir = Common.RES_CONFIG_DATA_COMMON + "/Image";
         strDir = "Common/UI"  
         fileName = "ImageRes.json";
-        // {
-        //     this.imageResCommon = new cc.ImageResInternal();
-        //     this.imageResCommon.fileJson = strDir + "/" + fileName;
-        //     this.listItem.push(this.imageResCommon);
-        // }
+        {
+            this.imageResCommon = new cc.ImageResInternal();
+            this.imageResCommon.fileJson = strDir + "/" + fileName;
+            this.listItem.push(this.imageResCommon);
+        }
 
 
         // if (!Platform.isCloudRes) 
@@ -73,62 +73,7 @@ var ImageRes = cc.Class({
             }
         }
     },
-
-    /*
-    {  
-    success: function (p) {
-    },
-    fail: function () {
-    }, 
-    }
-    */
-    Load22: function (obj) {
-        var filepath = "";
-        this.countLoad = 0;
-        this.imageResApp = new cc.ImageResInternal();
-        filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResApp.json";
-        this.imageResApp.Load(
-            {
-                filepath: filepath,
-                success: function (p) {
-                    this.OnFinish(obj);
-                }.bind(this),
-                fail: function () {
-                    this.OnFinish(obj);
-                }.bind(this),
-            });
-
-        /*
-
-    filepath = cc.Common.RES_CONFIG_DATA + "/Image/ImageResAppCommon.json";
-    this.imageResAppCommon = new cc.ImageResInternal();
-    this.imageResAppCommon.Load(  
-        { 
-        filepath:filepath,
-        success: function (p) {
-            this.OnFinish(obj); 
-        }.bind(this),
-        fail: function () {
-        }, 
-        });
-      
-    filepath = cc.Common.RES_CONFIG_DATA_COMMON + "/Image/ImageRes.json";
-    this.imageResCommon = new cc.ImageResInternal();
-    this.imageResCommon.Load(  
-        { 
-        filepath:filepath,
-        success: function (p) {
-            this.OnFinish(obj); 
-        }.bind(this),
-        fail: function () {
-        }, 
-        });
-*/
-
-    },
-
-
-
+  
     //bool
     IsHasBoard(key) {
       

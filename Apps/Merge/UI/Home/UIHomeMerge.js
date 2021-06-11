@@ -95,7 +95,7 @@ var UIHomeMerge =cc.Class({
        
     },
 
-    GotoGameByModeInteranl: function () {
+    GotoGame: function () {
         if (this.controller != null) {
             var navi = this.controller.naviController;
             navi.Push(GameViewController.main());
@@ -103,14 +103,7 @@ var UIHomeMerge =cc.Class({
             
 
         }
-    },
-    GotoGame: function () {
-        // cc.GameManager.gameMode = mode;
-        cc.LevelManager.main().StartParsePlace(function () {
-            this.GotoGameByModeInteranl();
-        }.bind(this)
-        );
-    },
+    }, 
 
     OnClickBtnPlay: function (event, customEventData) { 
         this.GotoGame(); 
