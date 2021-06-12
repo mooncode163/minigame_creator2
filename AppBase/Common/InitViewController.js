@@ -132,7 +132,7 @@ var InitViewController = cc.Class({
 
 
     GotoCloundRes: function () {
-        CloudResViewController.main.Show(
+        CloudResViewController.main().Show(
             {
                 controller: this,
                 close: function (p) {
